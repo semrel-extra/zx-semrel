@@ -5,6 +5,12 @@
 Sometimes bloody enterprise enforces you not to use any third-party solutions for sensitive operations (like release, deploy, so on).
 Old good script **copy-paste** hurries to the rescue!
 
+## Key features
+* Zero dependencies
+* Reliability and safety*
+* Simplicity and maintainability*
+* \* - sarcazm
+
 ## Usage
 ```shell
 zx release.mjs

@@ -1,0 +1,25 @@
+{
+  "name": "zx-semrel",
+  "version": "0.0.0",
+  "description": "zx-based release script as semantic-release alternative (PoC)",
+  "main": "release.mjs",
+  "scripts": {
+    "test": "exit 0",
+    "release": "zx ./release.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/antongolub/zx-semrel.git"
+  },
+  "keywords": [
+    "zx",
+    "semrel",
+    "release"
+  ],
+  "author": "Anton Golub <mailbox@antongolub.ru>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/antongolub/zx-semrel/issues"
+  },
+  "homepage": "https://github.com/antongolub/zx-semrel#readme"
+}
