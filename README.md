@@ -12,8 +12,12 @@ Old good script **copy-paste** hurries to the rescue!
 * \* - sarcazm
 
 ## Usage
-```shell
-zx release.mjs
+```bash
+zx ./release.mjs
+```
+or just this like if `zx` is not installed:
+```
+npx zx ./release.mjs
 ```
 
 ## Refs

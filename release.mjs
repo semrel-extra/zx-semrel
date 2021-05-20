@@ -3,7 +3,7 @@
 (async () => {
   $.verbose = false
 
-  const semanticTagPattern =  /^(\d+)\.(\d+)\.(\d+)$/
+  const semanticTagPattern =  /^(v?)(\d+)\.(\d+)\.(\d+)$/
   const releaseSeverityOrder = ['major', 'minor', 'patch']
   const semanticRules = [
     {group: 'Features', releaseType: 'minor', prefixes: ['feat']},
@@ -12,14 +12,15 @@
   ]
 
   const tags = (await $`git tag --merged`).toString().split('\n')
-  const lastVersion = tags.filter(tag => semanticTagPattern.test(tag)).pop()
-  const newCommits = (lastVersion
-    ? await $`git log --format=%s___%b___%h___%H ${await $`git rev-list -1 ${lastVersion}`}..HEAD`
-    : await $`git log --format=%s___%b___%h___%H HEAD`)
-    .toString().trim()
-    .split('\n')
+  const lastTag = tags.filter(tag => semanticTagPattern.test(tag)).pop()
+  const newCommits = (lastTag
+    ? await $`git log --format=+++%s__%b__%h__%H ${await $`git rev-list -1 ${lastTag}`}..HEAD`
+    : await $`git log --format=+++%s__%b__%h__%H HEAD`)
+    .toString()
+    .split('+++')
+    .filter(Boolean)
     .map(msg => {
-      const [subj, body, short, hash] = msg.split('___')
+      const [subj, body, short, hash] = msg.split('__').map(raw => raw.trim())
       return {subj, body, short, hash}
     })
 
@@ -44,15 +45,15 @@
   }, [])
 
   const nextReleaseType = releaseSeverityOrder.find(type => semanticChanges.find(({releaseType}) => type === releaseType))
-  const nextVersion = ((lastVersion, releaseType) => {
+  const nextVersion = ((lastTag, releaseType) => {
     if (!releaseType) {
       return
     }
-    if (!lastVersion) {
+    if (!lastTag) {
       return '1.0.0'
     }
 
-    const [,c1, c2, c3] = semanticTagPattern.exec(lastVersion)
+    const [,, c1, c2, c3] = semanticTagPattern.exec(lastTag)
     if (releaseType === 'major') {
       return `${1 + +c1}.0.0`
     }
@@ -62,21 +63,38 @@
     if (releaseType === 'patch') {
       return `${c1}.${c2}.${1 + +c3}`
     }
-  })(lastVersion, nextReleaseType)
+  })(lastTag, nextReleaseType)
 
   if (!nextVersion) {
     console.log('No semantic changes - no semantic release.')
     return
   }
 
-  const releaseDetails = semanticChanges.reduce((acc, {group}) => {}, {
-    
-  })
+  const nextTag = 'v' + nextVersion
+  const originUrl = (await $`git config --get remote.origin.url`).toString().trim()
+  const repoUrl = 'https://' + originUrl.replace(':', '/').replace(/\.git/, '').match(/.+(@|\/\/)(.+)$/)[2]
+  const releaseDiffRef = `##[${nextVersion}](${repoUrl}/compare/${lastTag}...${nextTag}) (${new Date().toISOString().slice(0, 10)})`
+  const releaseDetails = Object.values(semanticChanges
+    .reduce((acc, {group, subj, short, hash}) => {
+      const { commits } = acc[group] || (acc[group] = {commits: [], group})
+      const commitRef = `${subj} ([${short}](${hash}))`
 
-  console.log('releaseDetails=', releaseDetails)
+      commits.push(commitRef)
+
+      return acc
+    }, {}))
+    .map(({group, commits}) => `
+###${group}
+${commits.join('\n')}`).join('\n')
+
+  const releaseNotes = releaseDiffRef + '\n' + releaseDetails
+
+  console.log('semanticChanges=', semanticChanges)
+  console.log('releaseNotes=', releaseNotes)
+  // console.log('releaseDetails=', releaseDetails)
 
   // console.log('semanticChanges=', semanticChanges)
-  // console.log('lastVersion=', lastVersion)
+  // console.log('lastTag=', lastTag)
   // console.log('nextReleaseType=', nextReleaseType)
   // console.log('nextVersion=', nextVersion)
 
