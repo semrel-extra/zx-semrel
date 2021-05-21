@@ -74,9 +74,12 @@
 
   const nextTag = 'v' + nextVersion
   const originUrl = (await $`git config --get remote.origin.url`).toString().trim()
-  const repoPath = originUrl.replace(':', '/').replace(/\.git/, '').match(/.+(@|\/\/)(.+)$/)[2]
-  const repoHttpUrl = `https://${repoPath}`
-  const repoGitUrl = `git@${repoPath.replace('/', ':')}.git`
+  const [,,repoHost, repoName] = originUrl
+    .replace(':', '/')
+    .replace(/\.git/, '')
+    .match(/.+(@|\/\/)([^/]+)\/(.+)$/)
+  const repoHttpUrl = `https://${repoHost}/${repoName}`
+  const repoGitUrl = `git@${repoHost}:${repoName}.git`
   const releaseDiffRef = `##[${nextVersion}](${repoHttpUrl}/compare/${lastTag}...${nextTag}) (${new Date().toISOString().slice(0, 10)})`
   const releaseDetails = Object.values(semanticChanges
     .reduce((acc, {group, change, short, hash}) => {
@@ -112,7 +115,6 @@ ${commits.join('\n')}`).join('\n')
   await $`git config --global user.name ${gitUserName}`
   await $`git config --global user.email ${gitUserEmail}`
   await $`git remote set-url origin ${repoGitUrl}`
-  console.log('repoGitUrl=', repoGitUrl)
 
   await $`git add -A .`
   await $`git commit -am ${releaseMessage}`
@@ -130,7 +132,7 @@ ${commits.join('\n')}`).join('\n')
     tag_name: nextTag,
     body: releaseNotes
   })
-  await $`curl -u ${gitUserName}:${gitToken} -H "Accept: application/vnd.github.v3+json" https://api.${repoPath}/releases -d ${releaseData}`
+  await $`curl -u ${gitUserName}:${gitToken} -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/${repoName}/releases -d ${releaseData}`
 
   // Publish npm artifact
   await $`npm publish --no-git-tag-version`
