@@ -1,3 +1,8 @@
+##[1.3.0](https://github.com/antongolub/zx-semrel/compare/v1.2.0...v1.3.0) (2021-05-21)
+
+###Features
+* feat: control verbose by env ([82856a0](https://github.com/antongolub/zx-semrel/commits/82856a0a8d0895490dce73483ccfe913c856c5d1))
+
 ##[1.2.0](https://github.com/antongolub/zx-semrel/compare/v1.1.0...v1.2.0) (2021-05-21)
 
 ###Features
