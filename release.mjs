@@ -22,10 +22,6 @@
       const [subj, body, short, hash] = msg.split('__').map(raw => raw.trim())
       return {subj, body, short, hash}
     })
-  console.log((await $`git --version`).toString())
-  console.log('tags=', tags)
-  console.log('lastTag=', lastTag)
-  console.log('newCommits=', newCommits)
 
   const semanticChanges = newCommits.reduce((acc, {subj, body, short, hash}) => {
     semanticRules.forEach(({group, releaseType, prefixes, keywords}) => {
@@ -96,15 +92,12 @@
 ${commits.join('\n')}`).join('\n')
 
   const releaseNotes = releaseDiffRef + '\n' + releaseDetails + '\n'
-  console.log('releaseNotes=', releaseNotes)
 
   // Update changelog
   await $`echo ${releaseNotes}"\n$(cat ./CHANGELOG.md)" > ./CHANGELOG.md`
-  console.log('Updated CHANGELOG.md')
 
   // Update package.json version
   await $`npm --no-git-tag-version version ${nextVersion}`
-  console.log('Updated package.json version')
 
   // Prepare git commit and push
   // Regular github token can not provide access to single repository only.
