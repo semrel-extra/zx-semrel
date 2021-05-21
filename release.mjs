@@ -110,6 +110,7 @@ ${commits.join('\n')}`).join('\n')
   await $`git config --global url."git@github.com:".insteadOf "https://github.com/"`
   await $`git config --global user.name ${gitUserName}`
   await $`git config --global user.email ${gitUserEmail}`
+  await $`git remote set-url origin ${repoGitUrl}`
 
   await $`git add -A .`
   await $`git commit -am ${releaseMessage}`
