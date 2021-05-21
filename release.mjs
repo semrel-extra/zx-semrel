@@ -3,6 +3,7 @@ try {
 (async () => {
   $.verbose = false
 
+  const pl = promise => promise.catch(e => { console.error(JSON.stringify(e)); throw e })
   const semanticTagPattern = /^(v?)(\d+)\.(\d+)\.(\d+)$/
   const releaseSeverityOrder = ['major', 'minor', 'patch']
   const semanticRules = [
@@ -101,7 +102,7 @@ ${commits.join('\n')}`).join('\n')
   await $`echo ${releaseNotes}"\n$(cat ./CHANGELOG.md)" > ./CHANGELOG.md`
 
   // Update package.json version
-  await $`npm --no-git-tag-version version ${nextVersion}`
+  await pl($`npm --no-git-tag-version version ${nextVersion}`)
 
   // Prepare git commit and push
   // Regular github token can not provide access to single repository only.
@@ -111,14 +112,14 @@ ${commits.join('\n')}`).join('\n')
   await $`git add .`
   await $`git commit -m ${releaseMessage}`
   await $`git tag -a ${nextTag} HEAD -m ${releaseMessage}`
-  await $`git push --follow-tags`
+  await pl($`git push --follow-tags`)
 
   // Publish npm artifact
   // await $`echo '//registry.npmjs.org/:_authToken=\${NPM_TOKEN}' > .npmrc`
-  await $`npm publish --no-git-tag-version`
+  await pl($`npm publish --no-git-tag-version`)
 
   // Github release
-  await $`gh release create ${nextTag} --notes ${releaseNotes}`
+  await pl($`gh release create ${nextTag} --notes ${releaseNotes}`)
 
   console.log('Great success!')
 })()
