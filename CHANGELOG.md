@@ -1,3 +1,8 @@
+##[1.2.0](https://github.com/antongolub/zx-semrel/compare/v1.1.0...v1.2.0) (2021-05-21)
+
+###Features
+* feat: switch github.com git protocol to ssh ([97e0007](https://github.com/antongolub/zx-semrel/commits/97e0007e6f213284384a8e67e457cec5a8fc589e))
+
 ##[1.1.0](https://github.com/antongolub/zx-semrel/compare/v1.0.0...v1.1.0) (2021-05-21)
 
 ###Fixes & improvements
