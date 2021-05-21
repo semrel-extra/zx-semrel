@@ -1,3 +1,8 @@
+##[1.3.2](https://github.com/antongolub/zx-semrel/compare/v1.3.1...v1.3.2) (2021-05-21)
+
+###Fixes & improvements
+* fix: tech release ([e62c691](https://github.com/antongolub/zx-semrel/commits/e62c6913602e01d34a7b7aef96e3f730eeac5e26))
+
 ##[1.3.1](https://github.com/antongolub/zx-semrel/compare/v1.3.0...v1.3.1) (2021-05-21)
 
 ###Fixes & improvements
