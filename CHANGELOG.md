@@ -1,3 +1,8 @@
+##[1.3.1](https://github.com/antongolub/zx-semrel/compare/v1.3.0...v1.3.1) (2021-05-21)
+
+###Fixes & improvements
+* fix: force gh cli to use ssh ([c22d7c2](https://github.com/antongolub/zx-semrel/commits/c22d7c27c1a37077b52e9a837fe8d8099f3f214a))
+
 ##[1.3.0](https://github.com/antongolub/zx-semrel/compare/v1.2.0...v1.3.0) (2021-05-21)
 
 ###Features
