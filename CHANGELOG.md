@@ -1,3 +1,8 @@
+##[1.3.3](https://github.com/antongolub/zx-semrel/compare/v1.3.2...v1.3.3) (2021-05-21)
+
+###Fixes & improvements
+* fix: trigger gh release before npm publishing ([3be86ac](https://github.com/antongolub/zx-semrel/commits/3be86acfa8b643c7f76727cec091e5c5b8c51452))
+
 ##[1.3.2](https://github.com/antongolub/zx-semrel/compare/v1.3.1...v1.3.2) (2021-05-21)
 
 ###Fixes & improvements
