@@ -7,6 +7,9 @@
     "test": "exit 0",
     "release": "zx ./release.mjs"
   },
+  "engines": {
+    "node": ">=14"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/antongolub/zx-semrel.git"
