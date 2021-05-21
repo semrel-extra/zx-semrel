@@ -1,9 +1,7 @@
 // Replaces semantic-release with zx script
-try {
 (async () => {
   $.verbose = true
 
-  const pl = promise => promise.catch(e => { console.error(JSON.stringify(e)); throw e })
   const semanticTagPattern = /^(v?)(\d+)\.(\d+)\.(\d+)$/
   const releaseSeverityOrder = ['major', 'minor', 'patch']
   const semanticRules = [
@@ -105,7 +103,7 @@ ${commits.join('\n')}`).join('\n')
   console.log('Updated CHANGELOG.md')
 
   // Update package.json version
-  await pl($`npm --no-git-tag-version version ${nextVersion}`)
+  await $`npm --no-git-tag-version version ${nextVersion}`
   console.log('Updated package.json version')
 
   // Prepare git commit and push
@@ -113,41 +111,23 @@ ${commits.join('\n')}`).join('\n')
   // This is the key to all doors. SSH deploy keys may be more safe alternative.
   // https://stackoverflow.com/questions/26372417/github-oauth2-token-how-to-restrict-access-to-read-a-single-private-repo
   const releaseMessage = `chore(release): ${nextVersion} [skip ci]`
-  console.log('releaseMessage=', releaseMessage)
-  await $`git remote add upstream ${repoGitUrl}`
-  await $`git fetch upstream master`
-  await $`git config --global user.name 'zx-semrel'`
-  await $`git config --global user.email 'mailbox@antongolub.ru'`
+  const gitUserName = process.env.GIT_COMMITTER_NAME || 'zx-semrel'
+  const gitUserEmail = process.env.GIT_COMMITTER_EMAIL || 'mailbox@antongolub.ru'
 
+  await $`git config --global url."git@github.com:".insteadOf "https://github.com/"`
+  await $`git config --global user.name ${gitUserName}`
+  await $`git config --global user.email ${gitUserEmail}`
 
-
-  // git config --global user.name 'Your Name'
-  // git config --global user.email 'your-username@users.noreply.github.com'
-
-  console.log('set upstream url', repoGitUrl)
-  await pl($`git add -A .`)
-  console.log('added files')
-  console.log((await $`git status -s`).toString())
-  await pl($`git commit -am ${releaseMessage}`)
-  console.log('created commit')
-  await pl($`git tag -a ${nextTag} HEAD -m ${releaseMessage}`)
-  console.log('created tag')
-  await pl($`git push --follow-tags upstream HEAD:refs/heads/master`)
-  console.log('pushed commit')
-
-
+  await $`git add -A .`
+  await $`git commit -am ${releaseMessage}`
+  await $`git tag -a ${nextTag} HEAD -m ${releaseMessage}`
+  await $`git push --follow-tags origin HEAD:refs/heads/master`
 
   // Publish npm artifact
-  // await $`echo '//registry.npmjs.org/:_authToken=\${NPM_TOKEN}' > .npmrc`
-  await pl($`npm publish --no-git-tag-version`)
+  await $`npm publish --no-git-tag-version`
 
   // Github release
-  await pl($`gh release create ${nextTag} --notes ${releaseNotes}`)
+  await $`gh release create ${nextTag} --notes ${releaseNotes}`
 
   console.log('Great success!')
 })()
-} catch (e) {
-  console.error(JSON.stringify(e))
-  throw e
-}
-
