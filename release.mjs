@@ -1,9 +1,9 @@
 // Replaces semantic-release with zx script
-
+try {
 (async () => {
   $.verbose = false
 
-  const semanticTagPattern =  /^(v?)(\d+)\.(\d+)\.(\d+)$/
+  const semanticTagPattern = /^(v?)(\d+)\.(\d+)\.(\d+)$/
   const releaseSeverityOrder = ['major', 'minor', 'patch']
   const semanticRules = [
     {group: 'Features', releaseType: 'minor', prefixes: ['feat']},
@@ -32,7 +32,7 @@
     semanticRules.forEach(({group, releaseType, prefixes, keywords}) => {
       const prefixMatcher = prefixes && new RegExp(`^(${prefixes.join('|')})(\\(\\w+\\))?:\\s.+$`)
       const keywordsMatcher = keywords && new RegExp(`(${keywords.join('|')}):\\s(.+)`)
-      const change =  subj.match(prefixMatcher)?.[0] || body.match(keywordsMatcher)?.[2]
+      const change = subj.match(prefixMatcher)?.[0] || body.match(keywordsMatcher)?.[2]
 
       if (change) {
         acc.push({
@@ -60,7 +60,7 @@
       return '1.0.0'
     }
 
-    const [,, c1, c2, c3] = semanticTagPattern.exec(lastTag)
+    const [, , c1, c2, c3] = semanticTagPattern.exec(lastTag)
     if (releaseType === 'major') {
       return `${1 + +c1}.0.0`
     }
@@ -83,7 +83,7 @@
   const releaseDiffRef = `##[${nextVersion}](${repoUrl}/compare/${lastTag}...${nextTag}) (${new Date().toISOString().slice(0, 10)})`
   const releaseDetails = Object.values(semanticChanges
     .reduce((acc, {group, change, short, hash}) => {
-      const { commits } = acc[group] || (acc[group] = {commits: [], group})
+      const {commits} = acc[group] || (acc[group] = {commits: [], group})
       const commitRef = `* ${change} ([${short}](${repoUrl}/commits/${hash}))`
 
       commits.push(commitRef)
@@ -122,5 +122,8 @@ ${commits.join('\n')}`).join('\n')
 
   console.log('Great success!')
 })()
-
+} catch (e) {
+  console.error(e)
+  throw e
+}
 
