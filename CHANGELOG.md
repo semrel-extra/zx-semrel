@@ -1,3 +1,8 @@
+##[1.3.4](https://github.com/antongolub/zx-semrel/compare/v1.3.3...v1.3.4) (2021-05-21)
+
+###Fixes & improvements
+* fix: ssh login to github ([0acc095](https://github.com/antongolub/zx-semrel/commits/0acc095e251375cfebe13311ca9eede728011336))
+
 ##[1.3.3](https://github.com/antongolub/zx-semrel/compare/v1.3.2...v1.3.3) (2021-05-21)
 
 ###Fixes & improvements
