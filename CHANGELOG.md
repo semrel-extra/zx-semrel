@@ -1,3 +1,8 @@
+## [1.5.2](https://github.com/antongolub/zx-semrel/compare/v1.5.1...v1.5.2) (2021-05-21)
+
+### Fixes & improvements
+* fix: fix releaseNotes format ([85e0fca](https://github.com/antongolub/zx-semrel/commits/85e0fcaea4ea341e336347fd78b7c1420849dd6d))
+
 ##[1.5.1](https://github.com/antongolub/zx-semrel/compare/v1.5.0...v1.5.1) (2021-05-21)
 
 ###Fixes & improvements
