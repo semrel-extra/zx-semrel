@@ -119,6 +119,7 @@ ${commits.join('\n')}`).join('\n')
   await $`git push --follow-tags origin HEAD:refs/heads/master`
 
   // Github release
+  await $`ssh -T git@github.com`
   await $`gh config set git_protocol ssh`
   await $`gh release create ${nextTag} --notes ${releaseNotes}`
 
