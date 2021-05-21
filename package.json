@@ -10,6 +10,11 @@
   "engines": {
     "node": ">=14"
   },
+  "files": [
+    "release.mjs",
+    "README.md",
+    "CHANGELOG.md"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/antongolub/zx-semrel.git"

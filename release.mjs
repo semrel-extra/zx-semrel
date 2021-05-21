@@ -27,12 +27,14 @@
   const semanticChanges = newCommits.reduce((acc, {subj, body, short, hash}) => {
     semanticRules.forEach(({group, releaseType, prefixes, keywords}) => {
       const prefixMatcher = prefixes && new RegExp(`^(${prefixes.join('|')})(\\(\\w+\\))?:\\s.+$`)
-      const keywordsMatcher = keywords && new RegExp(`(${keywords.join('|')})`)
+      const keywordsMatcher = keywords && new RegExp(`(${keywords.join('|')}):\\s(.+)`)
+      const change =  subj.match(prefixMatcher)?.[0] || body.match(keywordsMatcher)?.[2]
 
-      if (prefixMatcher && prefixMatcher.test(subj) || keywordsMatcher && keywordsMatcher.test(body)) {
+      if (change) {
         acc.push({
           group,
           releaseType,
+          change,
           subj,
           body,
           short,
@@ -75,9 +77,9 @@
   const repoUrl = 'https://' + originUrl.replace(':', '/').replace(/\.git/, '').match(/.+(@|\/\/)(.+)$/)[2]
   const releaseDiffRef = `##[${nextVersion}](${repoUrl}/compare/${lastTag}...${nextTag}) (${new Date().toISOString().slice(0, 10)})`
   const releaseDetails = Object.values(semanticChanges
-    .reduce((acc, {group, subj, short, hash}) => {
+    .reduce((acc, {group, change, short, hash}) => {
       const { commits } = acc[group] || (acc[group] = {commits: [], group})
-      const commitRef = `${subj} ([${short}](${hash}))`
+      const commitRef = `* ${change} ([${short}](${repoUrl}/commits/${hash}))`
 
       commits.push(commitRef)
 
@@ -87,30 +89,33 @@
 ###${group}
 ${commits.join('\n')}`).join('\n')
 
-  const releaseNotes = releaseDiffRef + '\n' + releaseDetails
+  const releaseNotes = releaseDiffRef + '\n' + releaseDetails + '\n'
 
-  console.log('semanticChanges=', semanticChanges)
-  console.log('releaseNotes=', releaseNotes)
-  // console.log('releaseDetails=', releaseDetails)
+  // Update changelog
+  await $`echo ${releaseNotes}"\n$(cat ./CHANGELOG.md)" > ./CHANGELOG.md`
 
-  // console.log('semanticChanges=', semanticChanges)
-  // console.log('lastTag=', lastTag)
+
   // console.log('nextReleaseType=', nextReleaseType)
-  // console.log('nextVersion=', nextVersion)
 
   // Update package.json version
-  // await $`npm --no-git-tag-version version ${nextVersion}`
+  await $`npm --no-git-tag-version version ${nextVersion}`
 
-  // Create .npmrc
-  //await $`echo '//registry.npmjs.org/:_authToken=\${NPM_TOKEN}' > .npmrc`
-
-  // prepare git commit and push
+  // Prepare git commit and push
   // Regular github token can not provide access to single repository only.
   // This is the key to all doors. SSH deploy keys may be more safe alternative.
   // https://stackoverflow.com/questions/26372417/github-oauth2-token-how-to-restrict-access-to-read-a-single-private-repo
+  const releaseMessage = `chore(release): ${nextVersion} [skip ci]`
+  await $`git add .`
+  await $`git commit -m "${releaseMessage}"`
+  await $`git tag -a ${nextTag} HEAD -m "${releaseMessage}"`
+  await $`git push --follow-tags`
 
+  // Publish npm artifact
+  //await $`echo '//registry.npmjs.org/:_authToken=\${NPM_TOKEN}' > .npmrc`
+  await $`npm publish --no-git-tag-version`
 
-
+  console.log('semanticChanges=', semanticChanges)
+  console.log('releaseNotes=', releaseNotes)
 // Next steps:
 // 1. update package.json version
 // 2. create changelog.md or just append new changes and version
