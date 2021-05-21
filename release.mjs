@@ -11,7 +11,7 @@
     {group: 'BREAKING CHANGES', releaseType: 'major', keywords: ['BREAKING CHANGE', 'BREAKING CHANGES']},
   ]
 
-  const tags = (await $`git tag --merged`).toString().split('\n')
+  const tags = (await $`git tag`).toString().split('\n').map(tag => tag.trim())
   const lastTag = tags.filter(tag => semanticTagPattern.test(tag)).pop()
   const newCommits = (lastTag
     ? await $`git log --format=+++%s__%b__%h__%H ${await $`git rev-list -1 ${lastTag}`}..HEAD`
@@ -23,6 +23,10 @@
       const [subj, body, short, hash] = msg.split('__').map(raw => raw.trim())
       return {subj, body, short, hash}
     })
+  console.log((await $`git --version`).toString())
+  console.log('tags=', tags)
+  console.log('lastTag=', lastTag)
+  console.log('newCommits=', newCommits)
 
   const semanticChanges = newCommits.reduce((acc, {subj, body, short, hash}) => {
     semanticRules.forEach(({group, releaseType, prefixes, keywords}) => {
@@ -45,6 +49,7 @@
 
     return acc
   }, [])
+  console.log('semanticChanges=', semanticChanges)
 
   const nextReleaseType = releaseSeverityOrder.find(type => semanticChanges.find(({releaseType}) => type === releaseType))
   const nextVersion = ((lastTag, releaseType) => {
@@ -90,6 +95,7 @@
 ${commits.join('\n')}`).join('\n')
 
   const releaseNotes = releaseDiffRef + '\n' + releaseDetails + '\n'
+  console.log('releaseNotes=', releaseNotes)
 
   // Update changelog
   await $`echo ${releaseNotes}"\n$(cat ./CHANGELOG.md)" > ./CHANGELOG.md`
@@ -114,8 +120,6 @@ ${commits.join('\n')}`).join('\n')
   // Github release
   await $`gh release create ${nextTag} --notes ${releaseNotes}`
 
-  console.log('semanticChanges=', semanticChanges)
-  console.log('releaseNotes=', releaseNotes)
   console.log('Great success!')
 })()
 
