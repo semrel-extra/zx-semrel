@@ -1,7 +1,7 @@
 // Replaces semantic-release with zx script
 try {
 (async () => {
-  $.verbose = false
+  $.verbose = true
 
   const pl = promise => promise.catch(e => { console.error(JSON.stringify(e)); throw e })
   const semanticTagPattern = /^(v?)(\d+)\.(\d+)\.(\d+)$/
@@ -80,12 +80,14 @@ try {
 
   const nextTag = 'v' + nextVersion
   const originUrl = (await $`git config --get remote.origin.url`).toString().trim()
-  const repoUrl = 'https://' + originUrl.replace(':', '/').replace(/\.git/, '').match(/.+(@|\/\/)(.+)$/)[2]
-  const releaseDiffRef = `##[${nextVersion}](${repoUrl}/compare/${lastTag}...${nextTag}) (${new Date().toISOString().slice(0, 10)})`
+  const repoPath = originUrl.replace(':', '/').replace(/\.git/, '').match(/.+(@|\/\/)(.+)$/)[2]
+  const repoHttpUrl = `https://${repoPath}`
+  const repoGitUrl = `git@${repoPath.replace('/', ':')}.git`
+  const releaseDiffRef = `##[${nextVersion}](${repoHttpUrl}/compare/${lastTag}...${nextTag}) (${new Date().toISOString().slice(0, 10)})`
   const releaseDetails = Object.values(semanticChanges
     .reduce((acc, {group, change, short, hash}) => {
       const {commits} = acc[group] || (acc[group] = {commits: [], group})
-      const commitRef = `* ${change} ([${short}](${repoUrl}/commits/${hash}))`
+      const commitRef = `* ${change} ([${short}](${repoHttpUrl}/commits/${hash}))`
 
       commits.push(commitRef)
 
@@ -100,19 +102,40 @@ ${commits.join('\n')}`).join('\n')
 
   // Update changelog
   await $`echo ${releaseNotes}"\n$(cat ./CHANGELOG.md)" > ./CHANGELOG.md`
+  console.log('Updated CHANGELOG.md')
 
   // Update package.json version
   await pl($`npm --no-git-tag-version version ${nextVersion}`)
+  console.log('Updated package.json version')
 
   // Prepare git commit and push
   // Regular github token can not provide access to single repository only.
   // This is the key to all doors. SSH deploy keys may be more safe alternative.
   // https://stackoverflow.com/questions/26372417/github-oauth2-token-how-to-restrict-access-to-read-a-single-private-repo
   const releaseMessage = `chore(release): ${nextVersion} [skip ci]`
-  await $`git add .`
-  await $`git commit -m ${releaseMessage}`
-  await $`git tag -a ${nextTag} HEAD -m ${releaseMessage}`
-  await pl($`git push --follow-tags`)
+  console.log('releaseMessage=', releaseMessage)
+  await $`git remote add upstream ${repoGitUrl}`
+  await $`git fetch upstream master`
+  await $`git config --global user.name 'zx-semrel'`
+  await $`git config --global user.email 'mailbox@antongolub.ru'`
+
+
+
+  // git config --global user.name 'Your Name'
+  // git config --global user.email 'your-username@users.noreply.github.com'
+
+  console.log('set upstream url', repoGitUrl)
+  await pl($`git add -A .`)
+  console.log('added files')
+  console.log((await $`git status -s`).toString())
+  await pl($`git commit -am ${releaseMessage}`)
+  console.log('created commit')
+  await pl($`git tag -a ${nextTag} HEAD -m ${releaseMessage}`)
+  console.log('created tag')
+  await pl($`git push --follow-tags upstream HEAD:refs/heads/master`)
+  console.log('pushed commit')
+
+
 
   // Publish npm artifact
   // await $`echo '//registry.npmjs.org/:_authToken=\${NPM_TOKEN}' > .npmrc`
@@ -124,7 +147,7 @@ ${commits.join('\n')}`).join('\n')
   console.log('Great success!')
 })()
 } catch (e) {
-  console.error(e)
+  console.error(JSON.stringify(e))
   throw e
 }
 
