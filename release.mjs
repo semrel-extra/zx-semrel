@@ -1,6 +1,6 @@
 // Replaces semantic-release with zx script
 (async () => {
-  $.verbose = true
+  $.verbose = !!process.env.VERBOSE
 
   const semanticTagPattern = /^(v?)(\d+)\.(\d+)\.(\d+)$/
   const releaseSeverityOrder = ['major', 'minor', 'patch']
