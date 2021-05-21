@@ -1,3 +1,12 @@
+##[1.1.0](https://github.com/antongolub/zx-semrel/compare/v1.0.0...v1.1.0) (2021-05-21)
+
+###Fixes & improvements
+* fix: use ssh for git actions ([453a69d](https://github.com/antongolub/zx-semrel/commits/453a69d4d2c784d50be19d23d82e4c28b3e9da95))
+
+###Features
+* feat: add top-level try-catch ([19d6396](https://github.com/antongolub/zx-semrel/commits/19d6396547914729c40501e1d1fa187d573b5e37))
+* feat: add github release creation ([bdf53e4](https://github.com/antongolub/zx-semrel/commits/bdf53e4aed73bbe94ede0fa637939cc043aabec5))
+
 ##[1.0.0](https://github.com/antongolub/zx-semrel/compare/undefined...v1.0.0) (2021-05-21)
 
 ###Features
@@ -11,5 +20,3 @@
 
 ###BREAKING CHANGES
 * define Node.js version requirements ([f00c95c](https://github.com/antongolub/zx-semrel/commits/f00c95c7fa20e7e508203ded52c81d2095bb4259))
-
-
