@@ -104,8 +104,9 @@ ${commits.join('\n')}`).join('\n')
   // This is the key to all doors. SSH deploy keys may be more safe alternative.
   // https://stackoverflow.com/questions/26372417/github-oauth2-token-how-to-restrict-access-to-read-a-single-private-repo
   const releaseMessage = `chore(release): ${nextVersion} [skip ci]`
-  const gitUserName = process.env.GIT_COMMITTER_NAME || 'zx-semrel'
+  const gitUserName = process.env.GIT_COMMITTER_NAME || 'antongolub'
   const gitUserEmail = process.env.GIT_COMMITTER_EMAIL || 'mailbox@antongolub.ru'
+  const gitToken = process.env.GITHUB_TOKEN
 
   await $`git config --global url."git@github.com:".insteadOf "https://github.com/"`
   await $`git config --global user.name ${gitUserName}`
@@ -119,9 +120,17 @@ ${commits.join('\n')}`).join('\n')
   await $`git push --follow-tags origin HEAD:refs/heads/master`
 
   // Github release
-  await $`ssh -T git@github.com`
-  await $`gh config set git_protocol ssh`
-  await $`gh release create ${nextTag} --notes ${releaseNotes}`
+  // await $`ssh -T git@github.com`
+  // await $`gh config set git_protocol ssh`
+  // await $`gh config set -h git_protocol ssh`
+  // await $`gh release create ${nextTag} --notes ${releaseNotes}`
+
+  const releaseData = JSON.stringify({
+    name: nextTag,
+    tag_name: nextTag,
+    body: releaseNotes
+  })
+  await $`curl -u ${gitUserName}:${gitToken} -H "Accept: application/vnd.github.v3+json" https://api.${repoPath}/releases -d '${releaseData}'`
 
   // Publish npm artifact
   await $`npm publish --no-git-tag-version`

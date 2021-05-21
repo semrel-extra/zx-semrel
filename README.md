@@ -25,3 +25,5 @@ npx zx ./release.mjs
 * [NIH](https://en.wikipedia.org/wiki/Not_invented_here)
 * [npmjs.com/using-private-packages-in-a-ci-cd-workflow](https://docs.npmjs.com/using-private-packages-in-a-ci-cd-workflow)
 * [https://github.com/cli/cli/issues/1425](https://github.com/cli/cli/issues/1425)
+* [https://gist.github.com/Kovrinic/ea5e7123ab5c97d451804ea222ecd78a](https://gist.github.com/Kovrinic/ea5e7123ab5c97d451804ea222ecd78a)
+* [https://docs.github.com/en/actions/reference/authentication-in-a-workflow#permissions-for-the-github_token](https://docs.github.com/en/actions/reference/authentication-in-a-workflow#permissions-for-the-github_token)

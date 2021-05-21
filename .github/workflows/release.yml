@@ -7,6 +7,10 @@ on:
 env:
   SSH_AUTH_SOCK_FIRST: /tmp/ssh_agent_first.sock
 
+permissions:
+  checks: read
+  contents: write
+
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -46,4 +50,5 @@ jobs:
       - name: Run release.mjs
         run: npx zx ./release.mjs
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SSH_AUTH_SOCK: ${{ env.SSH_AUTH_SOCK_FIRST }}
