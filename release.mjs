@@ -121,6 +121,7 @@ ${commits.join('\n')}`).join('\n')
   await $`npm publish --no-git-tag-version`
 
   // Github release
+  await $`gh config set git_protocol ssh`
   await $`gh release create ${nextTag} --notes ${releaseNotes}`
 
   console.log('Great success!')
