@@ -80,7 +80,7 @@
     .match(/.+(@|\/\/)([^/]+)\/(.+)$/)
   const repoHttpUrl = `https://${repoHost}/${repoName}`
   const repoGitUrl = `git@${repoHost}:${repoName}.git`
-  const releaseDiffRef = `##[${nextVersion}](${repoHttpUrl}/compare/${lastTag}...${nextTag}) (${new Date().toISOString().slice(0, 10)})`
+  const releaseDiffRef = `## [${nextVersion}](${repoHttpUrl}/compare/${lastTag}...${nextTag}) (${new Date().toISOString().slice(0, 10)})`
   const releaseDetails = Object.values(semanticChanges
     .reduce((acc, {group, change, short, hash}) => {
       const {commits} = acc[group] || (acc[group] = {commits: [], group})
@@ -91,7 +91,7 @@
       return acc
     }, {}))
     .map(({group, commits}) => `
-###${group}
+### ${group}
 ${commits.join('\n')}`).join('\n')
 
   const releaseNotes = releaseDiffRef + '\n' + releaseDetails + '\n'
