@@ -1,3 +1,8 @@
+##[1.5.0](https://github.com/antongolub/zx-semrel/compare/v1.4.0...v1.5.0) (2021-05-21)
+
+###Features
+* feat: replace gh cli with curl ([6148aed](https://github.com/antongolub/zx-semrel/commits/6148aedb1ad433d9a19b1ef14e775ff7662d838c))
+
 ##[1.3.4](https://github.com/antongolub/zx-semrel/compare/v1.3.3...v1.3.4) (2021-05-21)
 
 ###Fixes & improvements
