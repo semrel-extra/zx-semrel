@@ -1,6 +1,6 @@
 // Replaces semantic-release with zx script
 (async () => {
-  $.verbose = !!process.env.VERBOSE
+  $.verbose = true // !!process.env.VERBOSE
 
   const semanticTagPattern = /^(v?)(\d+)\.(\d+)\.(\d+)$/
   const releaseSeverityOrder = ['major', 'minor', 'patch']
@@ -111,18 +111,19 @@ ${commits.join('\n')}`).join('\n')
   await $`git config --global user.name ${gitUserName}`
   await $`git config --global user.email ${gitUserEmail}`
   await $`git remote set-url origin ${repoGitUrl}`
+  console.log('repoGitUrl=', repoGitUrl)
 
   await $`git add -A .`
   await $`git commit -am ${releaseMessage}`
   await $`git tag -a ${nextTag} HEAD -m ${releaseMessage}`
   await $`git push --follow-tags origin HEAD:refs/heads/master`
 
-  // Publish npm artifact
-  await $`npm publish --no-git-tag-version`
-
   // Github release
   await $`gh config set git_protocol ssh`
   await $`gh release create ${nextTag} --notes ${releaseNotes}`
+
+  // Publish npm artifact
+  await $`npm publish --no-git-tag-version`
 
   console.log('Great success!')
 })()
