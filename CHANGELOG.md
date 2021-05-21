@@ -1,3 +1,8 @@
+##[1.5.1](https://github.com/antongolub/zx-semrel/compare/v1.5.0...v1.5.1) (2021-05-21)
+
+###Fixes & improvements
+* fix: fix release url ([15855ec](https://github.com/antongolub/zx-semrel/commits/15855ecb68cf69a844c51c735ecae23da0cabbcc))
+
 ##[1.5.0](https://github.com/antongolub/zx-semrel/compare/v1.4.0...v1.5.0) (2021-05-21)
 
 ###Features
