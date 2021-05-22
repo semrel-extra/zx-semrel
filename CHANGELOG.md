@@ -1,3 +1,8 @@
+## [1.9.2](https://github.com/antongolub/zx-semrel/compare/v1.9.1...v1.9.2) (2021-05-22)
+
+### Fixes & improvements
+* perf: debug release ([856206b](https://github.com/antongolub/zx-semrel/commits/856206bf5a502ea2539f803979d5a4f3ecd10a30))
+
 ## [1.9.1](https://github.com/antongolub/zx-semrel/compare/v1.9.0...v1.9.1) (2021-05-22)
 
 ### Fixes & improvements
