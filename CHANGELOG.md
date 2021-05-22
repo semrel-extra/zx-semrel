@@ -1,3 +1,8 @@
+## [1.9.1](https://github.com/antongolub/zx-semrel/compare/v1.9.0...v1.9.1) (2021-05-22)
+
+### Fixes & improvements
+* fix: fix npm registry switch ([748ec1a](https://github.com/antongolub/zx-semrel/commits/748ec1a31a0cf99885247717fa53782b8166fc80))
+
 ## [1.9.0](https://github.com/antongolub/zx-semrel/compare/v1.8.2...v1.9.0) (2021-05-22)
 
 ### Features
