@@ -16,6 +16,7 @@
   "files": [
     "cli.sh",
     "release.mjs",
+    "LICENSE",
     "README.md",
     "CHANGELOG.md"
   ],
