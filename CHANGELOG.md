@@ -1,3 +1,8 @@
+## [1.7.0](https://github.com/antongolub/zx-semrel/compare/v1.6.0...v1.7.0) (2021-05-22)
+
+### Features
+* feat: add bin entry ([99c8ba4](https://github.com/antongolub/zx-semrel/commits/99c8ba481573a009dcbd5824ef23f2141fd4c20a))
+
 ## [1.6.0](https://github.com/antongolub/zx-semrel/compare/v1.5.2...v1.6.0) (2021-05-22)
 
 ### Features
