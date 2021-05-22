@@ -33,3 +33,5 @@ jobs:
           zx-semrel
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GIT_COMMITTER_NAME: Anton Golub
+          GIT_COMMITTER_EMAIL: mailbox@antongolub.ru
