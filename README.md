@@ -27,3 +27,4 @@ npx zx ./release.mjs
 * [https://github.com/cli/cli/issues/1425](https://github.com/cli/cli/issues/1425)
 * [https://gist.github.com/Kovrinic/ea5e7123ab5c97d451804ea222ecd78a](https://gist.github.com/Kovrinic/ea5e7123ab5c97d451804ea222ecd78a)
 * [https://docs.github.com/en/actions/reference/authentication-in-a-workflow#permissions-for-the-github_token](https://docs.github.com/en/actions/reference/authentication-in-a-workflow#permissions-for-the-github_token)
+* [https://github.blog/changelog/2021-04-20-github-actions-control-permissions-for-github_token/](https://github.blog/changelog/2021-04-20-github-actions-control-permissions-for-github_token/)

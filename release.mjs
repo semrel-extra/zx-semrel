@@ -2,6 +2,20 @@
 (async () => {
   $.verbose = true // !!process.env.VERBOSE
 
+  // Git configuration
+  const gitUserName = process.env.GIT_COMMITTER_NAME || 'antongolub'
+  const gitUserEmail = process.env.GIT_COMMITTER_EMAIL || 'mailbox@antongolub.ru'
+  const gitToken = process.env.GITHUB_TOKEN
+  const gitAuth = `${gitUserName}:${gitToken}`
+  const originUrl = (await $`git config --get remote.origin.url`).toString().trim()
+  const [,,repoHost, repoName] = originUrl.replace(':', '/').replace(/\.git/, '').match(/.+(@|\/\/)([^/]+)\/(.+)$/)
+  const repoPublicUrl = `https://${repoHost}/${repoName}`
+  const repoAuthedUrl = `https://${gitAuth}@${repoHost}/${repoName}`
+  await $`git config --global user.name ${gitUserName}`
+  await $`git config --global user.email ${gitUserEmail}`
+  await $`git remote set-url origin ${repoAuthedUrl}`
+
+  // Commits analysis
   const semanticTagPattern = /^(v?)(\d+)\.(\d+)\.(\d+)$/
   const releaseSeverityOrder = ['major', 'minor', 'patch']
   const semanticRules = [
@@ -73,18 +87,11 @@
   }
 
   const nextTag = 'v' + nextVersion
-  const originUrl = (await $`git config --get remote.origin.url`).toString().trim()
-  const [,,repoHost, repoName] = originUrl
-    .replace(':', '/')
-    .replace(/\.git/, '')
-    .match(/.+(@|\/\/)([^/]+)\/(.+)$/)
-  const repoHttpUrl = `https://${repoHost}/${repoName}`
-  const repoGitUrl = `git@${repoHost}:${repoName}.git`
-  const releaseDiffRef = `## [${nextVersion}](${repoHttpUrl}/compare/${lastTag}...${nextTag}) (${new Date().toISOString().slice(0, 10)})`
+  const releaseDiffRef = `## [${nextVersion}](${repoPublicUrl}/compare/${lastTag}...${nextTag}) (${new Date().toISOString().slice(0, 10)})`
   const releaseDetails = Object.values(semanticChanges
     .reduce((acc, {group, change, short, hash}) => {
       const {commits} = acc[group] || (acc[group] = {commits: [], group})
-      const commitRef = `* ${change} ([${short}](${repoHttpUrl}/commits/${hash}))`
+      const commitRef = `* ${change} ([${short}](${repoPublicUrl}/commits/${hash}))`
 
       commits.push(commitRef)
 
@@ -107,26 +114,12 @@ ${commits.join('\n')}`).join('\n')
   // This is the key to all doors. SSH deploy keys may be more safe alternative.
   // https://stackoverflow.com/questions/26372417/github-oauth2-token-how-to-restrict-access-to-read-a-single-private-repo
   const releaseMessage = `chore(release): ${nextVersion} [skip ci]`
-  const gitUserName = process.env.GIT_COMMITTER_NAME || 'antongolub'
-  const gitUserEmail = process.env.GIT_COMMITTER_EMAIL || 'mailbox@antongolub.ru'
-  const gitToken = process.env.GITHUB_TOKEN
-
-  await $`git config --global url."git@github.com:".insteadOf "https://github.com/"`
-  await $`git config --global user.name ${gitUserName}`
-  await $`git config --global user.email ${gitUserEmail}`
-  await $`git remote set-url origin ${repoGitUrl}`
-
   await $`git add -A .`
   await $`git commit -am ${releaseMessage}`
   await $`git tag -a ${nextTag} HEAD -m ${releaseMessage}`
   await $`git push --follow-tags origin HEAD:refs/heads/master`
 
-  // Github release
-  // await $`ssh -T git@github.com`
-  // await $`gh config set git_protocol ssh`
-  // await $`gh config set -h git_protocol ssh`
-  // await $`gh release create ${nextTag} --notes ${releaseNotes}`
-
+  // Push GitHub release
   const releaseData = JSON.stringify({
     name: nextTag,
     tag_name: nextTag,

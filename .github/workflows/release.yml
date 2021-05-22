@@ -4,11 +4,9 @@ on:
   push:
     branches: [ master ]
 
-env:
-  SSH_AUTH_SOCK_FIRST: /tmp/ssh_agent_first.sock
-
 permissions:
   checks: read
+  statuses: write
   contents: write
 
 jobs:
@@ -24,24 +22,6 @@ jobs:
         with:
           node-version: 16
 
-      # https://stackoverflow.com/questions/26372417/github-oauth2-token-how-to-restrict-access-to-read-a-single-private-repo
-      - name: Setup SSH Agent
-        run: |
-          # load deploy keys from the secrets
-          echo "${{ secrets.DEPLOY_KEY }}" > ./ssh_key_first
-
-          # set chmods (required to use keys)
-          chmod 0600 ./ssh_key_*
-
-          # start agents
-          ssh-agent -a $SSH_AUTH_SOCK_FIRST > /dev/null
-
-          # add each key to their own ssh agent
-          SSH_AUTH_SOCK=$SSH_AUTH_SOCK_FIRST ssh-add ./ssh_key_first
-
-          # you can now remove keys from the filesystem
-          rm -f ./ssh_key_*
-
       - name: Create .npmrc
         run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
         env:
@@ -51,4 +31,3 @@ jobs:
         run: npx zx ./release.mjs
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SSH_AUTH_SOCK: ${{ env.SSH_AUTH_SOCK_FIRST }}
