@@ -10,7 +10,11 @@
   "engines": {
     "node": ">=14"
   },
+  "bin": {
+    "zx-semrel": "./cli.sh"
+  },
   "files": [
+    "cli.sh",
     "release.mjs",
     "README.md",
     "CHANGELOG.md"

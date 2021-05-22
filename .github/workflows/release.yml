@@ -28,6 +28,8 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Run release.mjs
-        run: npx zx ./release.mjs
+        run: |
+          npm link
+          zx-semrel
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
