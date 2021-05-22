@@ -8,6 +8,7 @@ permissions:
   checks: read
   statuses: write
   contents: write
+  packages: write
 
 jobs:
   release:
@@ -23,8 +24,11 @@ jobs:
           node-version: 16
 
       - name: Create .npmrc
-        run: echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" > .npmrc
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> .npmrc
+          echo "//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}" >> .npmrc
         env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Run release.mjs

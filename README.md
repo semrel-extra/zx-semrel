@@ -22,8 +22,8 @@ Old good script **copy-paste** hurries to the rescue!
 * `CHANGELOG.md` generation
 * `package.json` version bumping
 * Git release commit creation
-* [GitHub Release](https://docs.github.com/en/github/administering-a-repository/releasing-projects-on-github/managing-releases-in-a-repository#creating-a-release) publishing
-* npm artifact publishing
+* [GitHub Release](https://docs.github.com/en/github/administering-a-repository/releasing-projects-on-github/managing-releases-in-a-repository#creating-a-release)
+* npm package publishing to [npmjs](https://registry.npmjs.org) and [gh](npm.pkg.github.com)
 
 ## Usage
 1. Copy
