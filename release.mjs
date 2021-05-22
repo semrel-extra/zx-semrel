@@ -130,6 +130,7 @@ ${commits.join('\n')}`).join('\n')
   // Publish npm artifact
   await $`npm config set registry https://registry.npmjs.org`
   await $`npm publish --no-git-tag-version`
+  await $`echo "\`jq '.name="@${repoName}"' package.json\`" > package.json`
   await $`npm config set registry https://npm.pkg.github.com`
   await $`npm publish --no-git-tag-version`
 
