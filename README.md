@@ -1,4 +1,6 @@
 # zx-semrel
+[![Release](https://github.com/antongolub/zx-semrel/workflows/Release/badge.svg)](https://github.com/antongolub/zx-semrel/actions)
+
 [zx](https://github.com/google/zx) -based release script as [semantic-release](https://github.com/semantic-release/semantic-release) alternative (PoC)
 
 Sometimes bloody enterprise enforces you not to use any third-party solutions for sensitive operations (like release, deploy, so on).
@@ -23,7 +25,7 @@ Old good script **copy-paste** hurries to the rescue!
 * `package.json` version bumping
 * Git release commit creation
 * [GitHub Release](https://docs.github.com/en/github/administering-a-repository/releasing-projects-on-github/managing-releases-in-a-repository#creating-a-release)
-* npm package publishing to [npmjs](https://registry.npmjs.org) and [gh](npm.pkg.github.com)
+* Package publishing to both [npmjs](https://registry.npmjs.org) and [gh](http://npm.pkg.github.com) registries
 
 ## Usage
 1. Copy
