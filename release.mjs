@@ -3,16 +3,18 @@
   $.verbose = !!process.env.VERBOSE
 
   // Git configuration
-  const gitUserName = process.env.GIT_COMMITTER_NAME || 'antongolub'
-  const gitUserEmail = process.env.GIT_COMMITTER_EMAIL || 'mailbox@antongolub.ru'
-  const gitToken = process.env.GITHUB_TOKEN
-  const gitAuth = `${gitUserName}:${gitToken}`
+  const {GIT_COMMITTER_NAME, GIT_COMMITTER_EMAIL, GITHUB_TOKEN} = process.env
+  if (!GITHUB_TOKEN || !GIT_COMMITTER_NAME || !GIT_COMMITTER_EMAIL) {
+    throw new Error('env.GITHUB_TOKEN, env.GIT_COMMITTER_NAME & env.GIT_COMMITTER_EMAIL must be set')
+  }
+
+  const gitAuth = `${GIT_COMMITTER_NAME}:${GITHUB_TOKEN}`
   const originUrl = (await $`git config --get remote.origin.url`).toString().trim()
   const [,,repoHost, repoName] = originUrl.replace(':', '/').replace(/\.git/, '').match(/.+(@|\/\/)([^/]+)\/(.+)$/)
   const repoPublicUrl = `https://${repoHost}/${repoName}`
   const repoAuthedUrl = `https://${gitAuth}@${repoHost}/${repoName}`
-  await $`git config --global user.name ${gitUserName}`
-  await $`git config --global user.email ${gitUserEmail}`
+  await $`git config --global user.name ${GIT_COMMITTER_NAME}`
+  await $`git config --global user.email ${GIT_COMMITTER_EMAIL}`
   await $`git remote set-url origin ${repoAuthedUrl}`
 
   // Commits analysis
@@ -125,7 +127,7 @@ ${commits.join('\n')}`).join('\n')
     tag_name: nextTag,
     body: releaseNotes
   })
-  await $`curl -u ${gitUserName}:${gitToken} -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/${repoName}/releases -d ${releaseData}`
+  await $`curl -u ${GIT_COMMITTER_NAME}:${GITHUB_TOKEN} -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/${repoName}/releases -d ${releaseData}`
 
   // Publish npm artifact
   await $`npm publish --no-git-tag-version`
