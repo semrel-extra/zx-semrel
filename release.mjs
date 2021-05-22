@@ -112,8 +112,7 @@ ${commits.join('\n')}`).join('\n')
   await $`npm --no-git-tag-version version ${nextVersion}`
 
   // Prepare git commit and push
-  // Regular github token can not provide access to single repository only.
-  // This is the key to all doors. SSH deploy keys may be more safe alternative.
+  // Hint: PAT may be replaced with a SSH deploy token
   // https://stackoverflow.com/questions/26372417/github-oauth2-token-how-to-restrict-access-to-read-a-single-private-repo
   const releaseMessage = `chore(release): ${nextVersion} [skip ci]`
   await $`git add -A .`
