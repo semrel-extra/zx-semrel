@@ -1,3 +1,8 @@
+## [1.9.4](https://github.com/antongolub/zx-semrel/compare/v1.9.3...v1.9.4) (2021-05-22)
+
+### Fixes & improvements
+* docs(readme): formatting ([077f318](https://github.com/antongolub/zx-semrel/commits/077f3188c40bbed2272fdcce14db26c1abea952d))
+
 ## [1.9.3](https://github.com/antongolub/zx-semrel/compare/v1.9.2...v1.9.3) (2021-05-22)
 
 ### Fixes & improvements
