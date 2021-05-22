@@ -1,3 +1,8 @@
+## [1.9.0](https://github.com/antongolub/zx-semrel/compare/v1.8.2...v1.9.0) (2021-05-22)
+
+### Features
+* feat: add npm publish to gh ([090b354](https://github.com/antongolub/zx-semrel/commits/090b354348e91eaffd3813e1ef68fe0b0b19ef0d))
+
 ## [1.8.2](https://github.com/antongolub/zx-semrel/compare/v1.8.1...v1.8.2) (2021-05-22)
 
 ### Fixes & improvements
