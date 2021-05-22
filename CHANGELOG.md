@@ -1,3 +1,8 @@
+## [1.8.1](https://github.com/antongolub/zx-semrel/compare/v1.8.0...v1.8.1) (2021-05-22)
+
+### Fixes & improvements
+* docs(readme): mention license ([184d020](https://github.com/antongolub/zx-semrel/commits/184d02066cc2aa4d9449d2bf0b2e4a04c9256de0))
+
 ## [1.8.0](https://github.com/antongolub/zx-semrel/compare/v1.7.0...v1.8.0) (2021-05-22)
 
 ### Fixes & improvements
