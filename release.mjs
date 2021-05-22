@@ -92,7 +92,7 @@
   const releaseDetails = Object.values(semanticChanges
     .reduce((acc, {group, change, short, hash}) => {
       const {commits} = acc[group] || (acc[group] = {commits: [], group})
-      const commitRef = `* ${change} ([${short}](${repoPublicUrl}/commits/${hash}))`
+      const commitRef = `* ${change} ([${short}](${repoPublicUrl}/commit/${hash}))`
 
       commits.push(commitRef)
 
