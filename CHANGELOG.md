@@ -1,3 +1,11 @@
+## [1.8.0](https://github.com/antongolub/zx-semrel/compare/v1.7.0...v1.8.0) (2021-05-22)
+
+### Fixes & improvements
+* docs(readme): descr and usage examples improvements ([4cafade](https://github.com/antongolub/zx-semrel/commits/4cafade884d9400dc60246bc62825bca9b777efc))
+
+### Features
+* feat: check token env to be set ([e669b10](https://github.com/antongolub/zx-semrel/commits/e669b108881e476f5ba861958fa0b7986e1fd893))
+
 ## [1.7.0](https://github.com/antongolub/zx-semrel/compare/v1.6.0...v1.7.0) (2021-05-22)
 
 ### Features
