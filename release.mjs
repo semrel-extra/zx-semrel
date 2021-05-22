@@ -13,8 +13,8 @@
   const [,,repoHost, repoName] = originUrl.replace(':', '/').replace(/\.git/, '').match(/.+(@|\/\/)([^/]+)\/(.+)$/)
   const repoPublicUrl = `https://${repoHost}/${repoName}`
   const repoAuthedUrl = `https://${gitAuth}@${repoHost}/${repoName}`
-  await $`git config --global user.name ${GIT_COMMITTER_NAME}`
-  await $`git config --global user.email ${GIT_COMMITTER_EMAIL}`
+  await $`git config user.name ${GIT_COMMITTER_NAME}`
+  await $`git config user.email ${GIT_COMMITTER_EMAIL}`
   await $`git remote set-url origin ${repoAuthedUrl}`
 
   // Commits analysis

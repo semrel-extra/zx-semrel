@@ -5,19 +5,43 @@
 Sometimes bloody enterprise enforces you not to use any third-party solutions for sensitive operations (like release, deploy, so on).
 Old good script **copy-paste** hurries to the rescue!
 
+## Requirements
+* mac / linux
+* Node.js >= 14
+* git >= 2.0
+* zx >= 1.6.0
+
 ## Key features
 * Zero dependencies
-* Reliability and safety*
-* Simplicity and maintainability*
-* \* - sarcazm
+* Zero configuration
+* [Pretty fast](https://github.com/antongolub/zx-semrel/actions)
+* Less than 140 lines of code with comments
+* Reliability, safety, simplicity and maintainability (sarcasm)
+
+## Functionality
+* Poor [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) analyzer
+* CHANGELOG.md generation
+* package.json version bumping
+* Git release commit creation
+* [GitHub Release](https://docs.github.com/en/github/administering-a-repository/releasing-projects-on-github/managing-releases-in-a-repository#creating-a-release) publishing
+* npm artifact publishing
 
 ## Usage
-```bash
+1. copy
+2. tweak up, inject tokens
+3. run
+```shell
+curl https://raw.githubusercontent.com/antongolub/zx-semrel/master/release.mjs > ./release.mjs
 zx ./release.mjs
 ```
 or just this like if `zx` is not installed:
+```shell
+GIT_COMMITTER_NAME=antongolub GIT_COMMITER_EMAIL=mailbox@antongolub.ru GITHUB_TOKEN=token npx zx ./release.mjs
 ```
-npx zx ./release.mjs
+or
+```shell
+// cross your fingers for luck
+GIT_COMMITTER_NAME=antongolub GIT_COMMITER_EMAIL=mailbox@antongolub.ru GITHUB_TOKEN=token npx zx-semrel
 ```
 
 ## Refs
