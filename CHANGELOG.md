@@ -1,3 +1,8 @@
+## [1.6.0](https://github.com/antongolub/zx-semrel/compare/v1.5.2...v1.6.0) (2021-05-22)
+
+### Features
+* feat: use GITHUB_TOKEN instead of ssh key ([587d406](https://github.com/antongolub/zx-semrel/commits/587d406a7cf4e7d65ae45657a2f44adf33ce8b9e))
+
 ## [1.5.2](https://github.com/antongolub/zx-semrel/compare/v1.5.1...v1.5.2) (2021-05-21)
 
 ### Fixes & improvements
