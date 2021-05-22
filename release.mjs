@@ -1,6 +1,6 @@
 // Replaces semantic-release with zx script
 (async () => {
-  $.verbose = true // !!process.env.VERBOSE
+  $.verbose = !!process.env.VERBOSE
 
   // Git configuration
   const gitUserName = process.env.GIT_COMMITTER_NAME || 'antongolub'
