@@ -1,3 +1,8 @@
+## [1.8.2](https://github.com/antongolub/zx-semrel/compare/v1.8.1...v1.8.2) (2021-05-22)
+
+### Fixes & improvements
+* docs(readme): fix some typos ([b26cec0](https://github.com/antongolub/zx-semrel/commits/b26cec056f8bcd7f3a3593a38654206c28028ef2))
+
 ## [1.8.1](https://github.com/antongolub/zx-semrel/compare/v1.8.0...v1.8.1) (2021-05-22)
 
 ### Fixes & improvements
