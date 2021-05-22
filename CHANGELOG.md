@@ -1,3 +1,8 @@
+## [1.9.3](https://github.com/antongolub/zx-semrel/compare/v1.9.2...v1.9.3) (2021-05-22)
+
+### Fixes & improvements
+* fix: fix pkg scope on gh pkg release ([b9d2cd4](https://github.com/antongolub/zx-semrel/commits/b9d2cd4d8b9abcc29bb477aa3d19d623aee16bfa))
+
 ## [1.9.2](https://github.com/antongolub/zx-semrel/compare/v1.9.1...v1.9.2) (2021-05-22)
 
 ### Fixes & improvements
