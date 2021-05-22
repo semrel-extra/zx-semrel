@@ -1,6 +1,6 @@
 // Replaces semantic-release with zx script
 (async () => {
-  $.verbose = !!process.env.VERBOSE
+  $.verbose = true // !!process.env.VERBOSE
 
   // Git configuration
   const {GIT_COMMITTER_NAME, GIT_COMMITTER_EMAIL, GITHUB_TOKEN} = process.env
