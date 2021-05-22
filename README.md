@@ -18,7 +18,7 @@ Old good script **copy-paste** hurries to the rescue!
 * Reliability, safety, simplicity and maintainability (sarcasm)
 
 ### Functionality
-* Poor [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) analyzing
+* Poor [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) analysis
 * `CHANGELOG.md` generation
 * `package.json` version bumping
 * Git release commit creation
@@ -27,19 +27,20 @@ Old good script **copy-paste** hurries to the rescue!
 
 ## Usage
 1. Copy
-2. Tweak up, inject tokens
+2. Tweak up, inject tokens, etc
 3. Run
-```shell
+```bash
 curl https://raw.githubusercontent.com/antongolub/zx-semrel/master/release.mjs > ./release.mjs
 zx ./release.mjs
 ```
 or just this like if `zx` is not installed:
-```shell
+```bash
+# Just replace GIT* env values with your own
 GIT_COMMITTER_NAME=antongolub GIT_COMMITER_EMAIL=mailbox@antongolub.ru GITHUB_TOKEN=token npx zx ./release.mjs
 ```
-or
-```shell
-// cross your fingers for luck
+or run as is without any edits though **npx**:
+```bash
+# Cross your fingers for luck
 GIT_COMMITTER_NAME=antongolub GIT_COMMITER_EMAIL=mailbox@antongolub.ru GITHUB_TOKEN=token npx zx-semrel
 ```
 See also [gh-actions usage example](https://github.com/antongolub/zx-semrel/blob/master/.github/workflows/release.yml)

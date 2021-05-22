@@ -131,5 +131,5 @@ ${commits.join('\n')}`).join('\n')
   // Publish npm artifact
   await $`npm publish --no-git-tag-version`
 
-  console.log('Great success!')
+  console.log(chalk.bold('Great success!'))
 })()
