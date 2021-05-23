@@ -1,3 +1,10 @@
+## [1.9.5](https://github.com/antongolub/zx-semrel/compare/v1.9.4...v1.9.5) (2021-05-23)
+
+### Fixes & improvements
+* perf: use git for tags sorting ([a1abdae](https://github.com/antongolub/zx-semrel/commit/a1abdaea801824d0392e69f9182daf4d5f4b97db))
+* refactor: minor simplifications ([be847a2](https://github.com/antongolub/zx-semrel/commit/be847a26e2b0583e889403ec00db45f9f9555e30))
+* fix: fix commit url template ([3669edd](https://github.com/antongolub/zx-semrel/commit/3669edd7eb440e29dc0fcf493c76fbfc04271023))
+
 ## [1.9.4](https://github.com/antongolub/zx-semrel/compare/v1.9.3...v1.9.4) (2021-05-22)
 
 ### Fixes & improvements
