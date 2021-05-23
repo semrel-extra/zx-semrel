@@ -26,7 +26,7 @@
     {group: 'BREAKING CHANGES', releaseType: 'major', keywords: ['BREAKING CHANGE', 'BREAKING CHANGES']},
   ]
 
-  const tags = (await $`git tag`).toString().split('\n').map(tag => tag.trim())
+  const tags = (await $`git tag -l --sort=-v:refname`).toString().split('\n').map(tag => tag.trim())
   const lastTag = tags.find(tag => semanticTagPattern.test(tag))
   const newCommits = (lastTag
     ? await $`git log --format=+++%s__%b__%h__%H ${await $`git rev-list -1 ${lastTag}`}..HEAD`
