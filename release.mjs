@@ -27,7 +27,7 @@
   ]
 
   const tags = (await $`git tag`).toString().split('\n').map(tag => tag.trim())
-  const lastTag = tags.filter(tag => semanticTagPattern.test(tag)).pop()
+  const lastTag = tags.find(tag => semanticTagPattern.test(tag))
   const newCommits = (lastTag
     ? await $`git log --format=+++%s__%b__%h__%H ${await $`git rev-list -1 ${lastTag}`}..HEAD`
     : await $`git log --format=+++%s__%b__%h__%H HEAD`)
@@ -62,6 +62,10 @@
   console.log('semanticChanges=', semanticChanges)
 
   const nextReleaseType = releaseSeverityOrder.find(type => semanticChanges.find(({releaseType}) => type === releaseType))
+  if (!nextReleaseType) {
+    console.log('No semantic changes - no semantic release.')
+    return
+  }
   const nextVersion = ((lastTag, releaseType) => {
     if (!releaseType) {
       return
@@ -72,20 +76,15 @@
 
     const [, , c1, c2, c3] = semanticTagPattern.exec(lastTag)
     if (releaseType === 'major') {
-      return `${1 + +c1}.0.0`
+      return `${-~c1}.0.0`
     }
     if (releaseType === 'minor') {
-      return `${c1}.${1 + +c2}.0`
+      return `${c1}.${-~c2}.0`
     }
     if (releaseType === 'patch') {
-      return `${c1}.${c2}.${1 + +c3}`
+      return `${c1}.${c2}.${-~c3}`
     }
   })(lastTag, nextReleaseType)
-
-  if (!nextVersion) {
-    console.log('No semantic changes - no semantic release.')
-    return
-  }
 
   const nextTag = 'v' + nextVersion
   const releaseDiffRef = `## [${nextVersion}](${repoPublicUrl}/compare/${lastTag}...${nextTag}) (${new Date().toISOString().slice(0, 10)})`
