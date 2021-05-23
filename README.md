@@ -51,10 +51,11 @@ See also [gh-actions usage example](https://github.com/antongolub/zx-semrel/blob
 [MIT](https://github.com/antongolub/zx-semrel/blob/master/LICENSE)
 
 ## Refs
+* [Actually you don’t need 'semantic-release' for semantic release](https://dev.to/antongolub/you-don-t-need-semantic-release-sometimes-3k6k)
 * [stackoverflow.com/github-oauth2-token-how-to-restrict-access-to-read-a-single-private-repo](https://stackoverflow.com/questions/26372417/github-oauth2-token-how-to-restrict-access-to-read-a-single-private-repo)
-* [NIH](https://en.wikipedia.org/wiki/Not_invented_here)
 * [npmjs.com/using-private-packages-in-a-ci-cd-workflow](https://docs.npmjs.com/using-private-packages-in-a-ci-cd-workflow)
 * [https://github.com/cli/cli/issues/1425](https://github.com/cli/cli/issues/1425)
 * [https://gist.github.com/Kovrinic/ea5e7123ab5c97d451804ea222ecd78a](https://gist.github.com/Kovrinic/ea5e7123ab5c97d451804ea222ecd78a)
 * [https://docs.github.com/en/actions/reference/authentication-in-a-workflow#permissions-for-the-github_token](https://docs.github.com/en/actions/reference/authentication-in-a-workflow#permissions-for-the-github_token)
 * [https://github.blog/changelog/2021-04-20-github-actions-control-permissions-for-github_token/](https://github.blog/changelog/2021-04-20-github-actions-control-permissions-for-github_token/)
+* [Not invented here](https://en.wikipedia.org/wiki/Not_invented_here)
