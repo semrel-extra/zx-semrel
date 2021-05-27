@@ -1,6 +1,7 @@
 // Replaces semantic-release with zx script
 (async () => {
   $.verbose = !!process.env.VERBOSE
+  $.noquote = async (...args) => { const q = $.quote; $.quote = v => v; const p = $(...args); await p; $.quote = q; return p }
 
   // Git configuration
   const {GIT_COMMITTER_NAME, GIT_COMMITTER_EMAIL, GITHUB_TOKEN} = process.env
@@ -28,9 +29,8 @@
 
   const tags = (await $`git tag -l --sort=-v:refname`).toString().split('\n').map(tag => tag.trim())
   const lastTag = tags.find(tag => semanticTagPattern.test(tag))
-  const newCommits = (lastTag
-    ? await $`git log --format=+++%s__%b__%h__%H ${await $`git rev-list -1 ${lastTag}`}..HEAD`
-    : await $`git log --format=+++%s__%b__%h__%H HEAD`)
+  const commitsRange = lastTag ? `${(await $`git rev-list -1 ${lastTag}`).toString().trim()}..HEAD` : 'HEAD'
+  const newCommits = (await $.noquote`git log --format=+++%s__%b__%h__%H ${commitsRange}`)
     .toString()
     .split('+++')
     .filter(Boolean)
