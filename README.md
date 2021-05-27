@@ -16,7 +16,7 @@ Old good script **copy-paste** hurries to the rescue!
 * Zero dependencies
 * Zero configuration
 * [Pretty fast](https://github.com/antongolub/zx-semrel/actions)
-* Tiny, less than 140 lines with comments
+* [Tiny](https://github.com/antongolub/zx-semrel/blob/master/release.mjs), less than 140 lines with comments
 * Reliability, safety, simplicity and maintainability (sarcasm)
 
 ### Functionality
@@ -27,7 +27,7 @@ Old good script **copy-paste** hurries to the rescue!
 * [GitHub Release](https://docs.github.com/en/github/administering-a-repository/releasing-projects-on-github/managing-releases-in-a-repository#creating-a-release)
 * Package publishing to both [npmjs](https://registry.npmjs.org) and [gh](http://npm.pkg.github.com) registries
 
-## Usage
+## 🚀 Usage
 1. Copy
 2. Tweak up, inject tokens, etc
 3. Run
@@ -47,10 +47,10 @@ GIT_COMMITTER_NAME=antongolub GIT_COMMITER_EMAIL=mailbox@antongolub.ru GITHUB_TO
 ```
 See also [gh-actions usage example](https://github.com/antongolub/zx-semrel/blob/master/.github/workflows/release.yml)
 
-## License
+## 📄 License
 [MIT](https://github.com/antongolub/zx-semrel/blob/master/LICENSE)
 
-## Refs
+## 📎 Refs
 * [Actually you don’t need 'semantic-release' for semantic release](https://dev.to/antongolub/you-don-t-need-semantic-release-sometimes-3k6k)
 * [stackoverflow.com/github-oauth2-token-how-to-restrict-access-to-read-a-single-private-repo](https://stackoverflow.com/questions/26372417/github-oauth2-token-how-to-restrict-access-to-read-a-single-private-repo)
 * [npmjs.com/using-private-packages-in-a-ci-cd-workflow](https://docs.npmjs.com/using-private-packages-in-a-ci-cd-workflow)
