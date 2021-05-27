@@ -1,3 +1,9 @@
+## [1.9.6](https://github.com/antongolub/zx-semrel/compare/v1.9.5...v1.9.6) (2021-05-27)
+
+### Fixes & improvements
+* refactor: simplify commits fetching ([2b1a0d2](https://github.com/antongolub/zx-semrel/commit/2b1a0d2a187eda4abf574b406ce69f81ee62222b))
+* docs(readme): formatting ([e566ccc](https://github.com/antongolub/zx-semrel/commit/e566ccc03356abdab502cc0baf77cd5742be5efa))
+
 ## [1.9.5](https://github.com/antongolub/zx-semrel/compare/v1.9.4...v1.9.5) (2021-05-23)
 
 ### Fixes & improvements
