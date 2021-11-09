@@ -1,3 +1,8 @@
+## [1.9.7](https://github.com/semrel-extra/zx-semrel/compare/v1.9.6...v1.9.7) (2021-11-09)
+
+### Fixes & improvements
+* fix: fix Node.js version requirement ([5c25d05](https://github.com/semrel-extra/zx-semrel/commit/5c25d053e402d62029d2ca02ecfc500dd7dac88e))
+
 ## [1.9.6](https://github.com/semrel-extra/zx-semrel/compare/v1.9.5...v1.9.6) (2021-05-27)
 
 ### Fixes & improvements
