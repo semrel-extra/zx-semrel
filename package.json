@@ -8,7 +8,7 @@
     "release": "zx ./release.mjs"
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=14.13.1"
   },
   "bin": {
     "zx-semrel": "./cli.sh"
@@ -27,7 +27,8 @@
   "keywords": [
     "zx",
     "semrel",
-    "release"
+    "release",
+    "semantic-release"
   ],
   "author": "Anton Golub <mailbox@antongolub.ru>",
   "license": "MIT",

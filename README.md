@@ -7,8 +7,8 @@ Sometimes bloody enterprise enforces you not to use any third-party solutions fo
 Old good script **copy-paste** hurries to the rescue!
 
 ### Requirements
-* mac / linux
-* Node.js >= 14
+* macOS / linux
+* Node.js >= 14.13.1
 * git >= 2.0
 * zx >= 1.6.0
 
@@ -35,12 +35,12 @@ Old good script **copy-paste** hurries to the rescue!
 curl https://raw.githubusercontent.com/semrel-extra/zx-semrel/master/release.mjs > ./release.mjs
 zx ./release.mjs
 ```
-or just this like if `zx` is not installed:
+or this like if `zx` is not installed:
 ```bash
 # Just replace GIT* env values with your own
 GIT_COMMITTER_NAME=antongolub GIT_COMMITER_EMAIL=mailbox@antongolub.ru GITHUB_TOKEN=token npx zx ./release.mjs
 ```
-or run as is without any edits though **npx**:
+or just run it without any edits though **npx**:
 ```bash
 # Cross your fingers for luck
 GIT_COMMITTER_NAME=antongolub GIT_COMMITER_EMAIL=mailbox@antongolub.ru GITHUB_TOKEN=token npx zx-semrel
