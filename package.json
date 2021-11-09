@@ -22,7 +22,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/antongolub/zx-semrel.git"
+    "url": "git+https://github.com/semrel-extra/zx-semrel.git"
   },
   "keywords": [
     "zx",
@@ -32,7 +32,7 @@
   "author": "Anton Golub <mailbox@antongolub.ru>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/antongolub/zx-semrel/issues"
+    "url": "https://github.com/semrel-extra/zx-semrel/issues"
   },
-  "homepage": "https://github.com/antongolub/zx-semrel#readme"
+  "homepage": "https://github.com/semrel-extra/zx-semrel#readme"
 }
