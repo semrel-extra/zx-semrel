@@ -1,3 +1,8 @@
+## [1.9.8](https://github.com/semrel-extra/zx-semrel/compare/v1.9.7...v1.9.8) (2021-11-12)
+
+### Fixes & improvements
+* docs(readme): mention zx+semrel+maven snippet by @malys ([8248b17](https://github.com/semrel-extra/zx-semrel/commit/8248b172eae16bf1a8c0838be94b69004b886ccf))
+
 ## [1.9.7](https://github.com/semrel-extra/zx-semrel/compare/v1.9.6...v1.9.7) (2021-11-09)
 
 ### Fixes & improvements
