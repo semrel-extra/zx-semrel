@@ -47,6 +47,9 @@ GIT_COMMITTER_NAME=antongolub GIT_COMMITER_EMAIL=mailbox@antongolub.ru GITHUB_TO
 ```
 See also [gh-actions usage example](https://github.com/semrel-extra/zx-semrel/blob/master/.github/workflows/release.yml)
 
+### 🛠️ Extras
+* [zx + semrel + maven](https://gist.github.com/malys/f295388ac10c8fc30b8912598b13ceb6) by [@malys](https://github.com/malys)
+
 ### 📄 License
 [MIT](https://github.com/semrel-extra/zx-semrel/blob/master/LICENSE)
 
