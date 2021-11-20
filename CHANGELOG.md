@@ -1,3 +1,8 @@
+## [1.9.9](https://github.com/semrel-extra/zx-semrel/compare/v1.9.8...v1.9.9) (2021-11-20)
+
+### Fixes & improvements
+* perf: test release ([2199265](https://github.com/semrel-extra/zx-semrel/commit/219926586690be160b4de808a24ff3b6f197ae98))
+
 ## [1.9.8](https://github.com/semrel-extra/zx-semrel/compare/v1.9.7...v1.9.8) (2021-11-12)
 
 ### Fixes & improvements
