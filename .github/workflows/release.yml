@@ -38,5 +38,5 @@ jobs:
         env:
           VERBOSE: ${{ secrets.VERBOSE }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GIT_COMMITTER_NAME: antongolub
-          GIT_COMMITTER_EMAIL: mailbox@antongolub.ru
+          GIT_COMMITTER_NAME: ${{ secrets.GIT_COMMITTER_NAME }}
+          GIT_COMMITTER_EMAIL: ${{ secrets.GIT_COMMITTER_EMAIL }}
