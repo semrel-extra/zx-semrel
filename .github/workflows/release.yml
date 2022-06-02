@@ -32,9 +32,7 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Run release.mjs
-        run: |
-          npm link
-          zx-semrel
+        run: node ./cli.mjs
         env:
           VERBOSE: ${{ secrets.VERBOSE }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
