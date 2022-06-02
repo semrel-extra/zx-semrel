@@ -11,10 +11,10 @@
     "node": ">=14.13.1"
   },
   "bin": {
-    "zx-semrel": "./cli.sh"
+    "zx-semrel": "./cli.mjs"
   },
   "files": [
-    "cli.sh",
+    "cli.mjs",
     "release.mjs",
     "LICENSE",
     "README.md",
@@ -35,5 +35,8 @@
   "bugs": {
     "url": "https://github.com/semrel-extra/zx-semrel/issues"
   },
-  "homepage": "https://github.com/semrel-extra/zx-semrel#readme"
+  "homepage": "https://github.com/semrel-extra/zx-semrel#readme",
+  "dependencies": {
+    "zx": "^6.2.0"
+  }
 }
