@@ -1,3 +1,8 @@
+## [1.9.12](https://github.com/semrel-extra/zx-semrel/compare/v1.9.11...v1.9.12) (2022-06-02)
+
+### Fixes & improvements
+* fix: missing shebang ([6f6a0b8](https://github.com/semrel-extra/zx-semrel/commit/6f6a0b842c0bb74c4e9eca6ec7202f804d505aac))
+
 ## [1.9.11](https://github.com/semrel-extra/zx-semrel/compare/v1.9.10...v1.9.11) (2022-06-02)
 
 ### Fixes & improvements
