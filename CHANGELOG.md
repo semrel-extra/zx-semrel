@@ -1,3 +1,8 @@
+## [1.9.11](https://github.com/semrel-extra/zx-semrel/compare/v1.9.10...v1.9.11) (2022-06-02)
+
+### Fixes & improvements
+* fix(pkg): add type module ([8560c3c](https://github.com/semrel-extra/zx-semrel/commit/8560c3c1b1782fe1e69797d2edf30441b420e3ec))
+
 ## [1.9.10](https://github.com/semrel-extra/zx-semrel/compare/v1.9.9...v1.9.10) (2022-06-02)
 
 ### Fixes & improvements
