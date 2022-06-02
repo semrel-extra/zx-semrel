@@ -2,7 +2,7 @@
   "name": "zx-semrel",
   "version": "1.9.11",
   "description": "zx-based release script as semantic-release alternative (PoC)",
-  "main": "release.mjs",
+  "main": "./release.mjs",
   "type": "module",
   "scripts": {
     "test": "exit 0",
