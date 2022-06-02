@@ -1,3 +1,8 @@
+## [1.9.10](https://github.com/semrel-extra/zx-semrel/compare/v1.9.9...v1.9.10) (2022-06-02)
+
+### Fixes & improvements
+* fix: fix runner ([a02033d](https://github.com/semrel-extra/zx-semrel/commit/a02033d265c13c4e71d47f43f05db35b9d063776))
+
 ## [1.9.9](https://github.com/semrel-extra/zx-semrel/compare/v1.9.8...v1.9.9) (2021-11-20)
 
 ### Fixes & improvements
