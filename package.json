@@ -3,6 +3,7 @@
   "version": "1.9.10",
   "description": "zx-based release script as semantic-release alternative (PoC)",
   "main": "release.mjs",
+  "type": "module",
   "scripts": {
     "test": "exit 0",
     "release": "zx ./release.mjs"
