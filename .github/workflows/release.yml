@@ -23,6 +23,9 @@ jobs:
         with:
           node-version: 16
 
+      - name: Install deps
+        run: yarn
+
       - name: Create .npmrc
         run: |
           echo "//registry.npmjs.org/:_authToken=${NPM_TOKEN}" >> .npmrc
