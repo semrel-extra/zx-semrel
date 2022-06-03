@@ -1,3 +1,8 @@
+## [1.9.14](https://github.com/semrel-extra/zx-semrel/compare/v1.9.13...v1.9.14) (2022-06-03)
+
+### Fixes & improvements
+* perf: add some debug msgs ([a87fa68](https://github.com/semrel-extra/zx-semrel/commit/a87fa685a3c68d2cde163c0290d8196436599af3))
+
 ## [1.9.13](https://github.com/semrel-extra/zx-semrel/compare/v1.9.12...v1.9.13) (2022-06-03)
 
 ### Fixes & improvements
