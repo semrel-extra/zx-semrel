@@ -112,7 +112,7 @@ ${commits.join('\n')}`).join('\n')
   // Prepare git commit and push
   // Hint: PAT may be replaced with a SSH deploy token
   // https://stackoverflow.com/questions/26372417/github-oauth2-token-how-to-restrict-access-to-read-a-single-private-repo
-  await $`echo 'git push'`
+  console.log('git push')
   const releaseMessage = `chore(release): ${nextVersion} [skip ci]`
   await $`git add -A .`
   await $`git commit -am ${releaseMessage}`
@@ -125,14 +125,14 @@ ${commits.join('\n')}`).join('\n')
     tag_name: nextTag,
     body: releaseNotes
   })
-  await $`echo 'github release'`
+  console.log('github release')
   await $`curl -u ${GIT_COMMITTER_NAME}:${GITHUB_TOKEN} -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/${repoName}/releases -d ${releaseData}`
 
   // Publish npm artifact
-  await $`echo 'npm publish to https://registry.npmjs.org'`
+  console.log('npm publish to https://registry.npmjs.org')
   await $`npm publish --no-git-tag-version --registry=https://registry.npmjs.org`
 
-  await $`echo 'npm publish to https://npm.pkg.github.com'`
+  console.log('npm publish to https://npm.pkg.github.com')
   await $`echo "\`jq '.name="@${repoName}"' package.json\`" > package.json`
   await $`npm publish --no-git-tag-version --registry=https://npm.pkg.github.com`
 
