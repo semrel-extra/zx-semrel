@@ -127,11 +127,10 @@ ${commits.join('\n')}`).join('\n')
   await $`curl -u ${GIT_COMMITTER_NAME}:${GITHUB_TOKEN} -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/${repoName}/releases -d ${releaseData}`
 
   // Publish npm artifact
-  await $`npm config set registry https://registry.npmjs.org`
-  await $`npm publish --no-git-tag-version`
+  await $`npm publish --no-git-tag-version --registry=https://registry.npmjs.org`
+
   await $`echo "\`jq '.name="@${repoName}"' package.json\`" > package.json`
-  await $`npm config set registry https://npm.pkg.github.com`
-  await $`npm publish --no-git-tag-version`
+  await $`npm publish --no-git-tag-version --registry=https://npm.pkg.github.com`
 
   console.log(chalk.bold('Great success!'))
 })()
