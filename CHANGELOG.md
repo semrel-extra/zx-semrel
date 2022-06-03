@@ -1,3 +1,8 @@
+## [1.9.16](https://github.com/semrel-extra/zx-semrel/compare/v1.9.15...v1.9.16) (2022-06-03)
+
+### Fixes & improvements
+* perf: test nodejs v18 release ([fca8e8c](https://github.com/semrel-extra/zx-semrel/commit/fca8e8c2f592707ab3ea2b36b29fd431af2dc4cd))
+
 ## [1.9.15](https://github.com/semrel-extra/zx-semrel/compare/v1.9.14...v1.9.15) (2022-06-03)
 
 ### Fixes & improvements
