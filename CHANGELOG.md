@@ -1,3 +1,8 @@
+## [1.9.13](https://github.com/semrel-extra/zx-semrel/compare/v1.9.12...v1.9.13) (2022-06-03)
+
+### Fixes & improvements
+* perf: simplify npm publish ([24f249e](https://github.com/semrel-extra/zx-semrel/commit/24f249ee4ffcb4b148c313f5514ed65a7e0fec74))
+
 ## [1.9.12](https://github.com/semrel-extra/zx-semrel/compare/v1.9.11...v1.9.12) (2022-06-02)
 
 ### Fixes & improvements
