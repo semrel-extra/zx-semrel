@@ -1,3 +1,8 @@
+## [1.9.15](https://github.com/semrel-extra/zx-semrel/compare/v1.9.14...v1.9.15) (2022-06-03)
+
+### Fixes & improvements
+* perf: impr debug notes ([d8950ef](https://github.com/semrel-extra/zx-semrel/commit/d8950ef69cc0693b61b23d53a4ada341ce020d8b))
+
 ## [1.9.14](https://github.com/semrel-extra/zx-semrel/compare/v1.9.13...v1.9.14) (2022-06-03)
 
 ### Fixes & improvements
