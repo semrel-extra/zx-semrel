@@ -132,9 +132,10 @@ ${commits.join('\n')}`).join('\n')
   console.log('npm publish to https://registry.npmjs.org')
   await $`npm publish --no-git-tag-version --registry=https://registry.npmjs.org`
 
-  if (PKG_ALIAS) {
-    console.log(`npm publish ${PKG_ALIAS} to https://registry.npmjs.org`)
-    await $`echo "\`jq '.name="${PKG_ALIAS}"' package.json\`" > package.json`
+  const alias = PKG_ALIAS || fs.readJSONSync('./package.json').alias
+  if (alias) {
+    console.log(`npm publish ${alias} to https://registry.npmjs.org`)
+    await $`echo "\`jq '.name="${alias}"' package.json\`" > package.json`
     await $`npm publish --no-git-tag-version --registry=https://registry.npmjs.org`
   }
 
