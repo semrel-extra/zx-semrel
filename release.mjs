@@ -4,7 +4,7 @@
   $.noquote = async (...args) => { const q = $.quote; $.quote = v => v; const p = $(...args); p; $.quote = q; return p }
 
   // Git configuration
-  const {GIT_COMMITTER_NAME, GIT_COMMITTER_EMAIL, GITHUB_TOKEN} = process.env
+  const {GIT_COMMITTER_NAME, GIT_COMMITTER_EMAIL, GITHUB_TOKEN, PKG_ALIAS} = process.env
   if (!GITHUB_TOKEN || !GIT_COMMITTER_NAME || !GIT_COMMITTER_EMAIL) {
     throw new Error('env.GITHUB_TOKEN, env.GIT_COMMITTER_NAME & env.GIT_COMMITTER_EMAIL must be set')
   }
@@ -132,7 +132,13 @@ ${commits.join('\n')}`).join('\n')
   console.log('npm publish to https://registry.npmjs.org')
   await $`npm publish --no-git-tag-version --registry=https://registry.npmjs.org`
 
-  console.log('npm publish to https://npm.pkg.github.com')
+  if (PKG_ALIAS) {
+    console.log(`npm publish ${PKG_ALIAS} to https://registry.npmjs.org`)
+    await $`echo "\`jq '.name="${PKG_ALIAS}"' package.json\`" > package.json`
+    await $`npm publish --no-git-tag-version --registry=https://registry.npmjs.org`
+  }
+
+  console.log(`npm publish @${repoName} to https://npm.pkg.github.com`)
   await $`echo "\`jq '.name="@${repoName}"' package.json\`" > package.json`
   await $`npm publish --no-git-tag-version --registry=https://npm.pkg.github.com`
 
