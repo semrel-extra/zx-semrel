@@ -1,3 +1,11 @@
+## [1.10.0](https://github.com/semrel-extra/zx-semrel/compare/v1.9.16...v1.10.0) (2022-06-15)
+
+### Features
+* feat: add npm pkg alias publishing ([954f973](https://github.com/semrel-extra/zx-semrel/commit/954f973f575ef029bfe3858a968d185ef28f9164))
+
+### Fixes & improvements
+* fix: reduce noquote hook side-effects ([f1be5fc](https://github.com/semrel-extra/zx-semrel/commit/f1be5fccec0dbeaf04e7e04bb4d6f7bdad3b3a65))
+
 ## [1.9.16](https://github.com/semrel-extra/zx-semrel/compare/v1.9.15...v1.9.16) (2022-06-03)
 
 ### Fixes & improvements
