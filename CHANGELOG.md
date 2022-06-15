@@ -1,3 +1,8 @@
+## [1.11.0](https://github.com/semrel-extra/zx-semrel/compare/v1.10.0...v1.11.0) (2022-06-15)
+
+### Features
+* feat: handle pkg alias field ([a3c8dfd](https://github.com/semrel-extra/zx-semrel/commit/a3c8dfd9b2caf45a762b5402aec75370d374ba8f))
+
 ## [1.10.0](https://github.com/semrel-extra/zx-semrel/compare/v1.9.16...v1.10.0) (2022-06-15)
 
 ### Features
