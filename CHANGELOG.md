@@ -1,3 +1,8 @@
+## [1.11.1](https://github.com/semrel-extra/zx-semrel/compare/v1.11.0...v1.11.1) (2022-07-02)
+
+### Fixes & improvements
+* docs: mention zx-bulk-release ([547b07d](https://github.com/semrel-extra/zx-semrel/commit/547b07d40636d748e206506ae116d4487df647e9))
+
 ## [1.11.0](https://github.com/semrel-extra/zx-semrel/compare/v1.10.0...v1.11.0) (2022-06-15)
 
 ### Features
