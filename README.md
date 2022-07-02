@@ -1,10 +1,12 @@
 # zx-semrel
 [![Release](https://github.com/semrel-extra/zx-semrel/workflows/Release/badge.svg)](https://github.com/semrel-extra/zx-semrel/actions)
 
-[zx](https://github.com/google/zx) -based release script as [semantic-release](https://github.com/semantic-release/semantic-release) alternative (PoC)
+> [zx](https://github.com/google/zx) -based release script as [semantic-release](https://github.com/semantic-release/semantic-release) alternative (PoC)
 
 Sometimes bloody enterprise enforces you not to use any third-party solutions for sensitive operations (like release, deploy, so on).
 Old good script **copy-paste** hurries to the rescue!
+
+Btw, here's an adaptation for monorepos: [zx-bulk-release](https://github.com/semrel-extra/zx-bulk-release)
 
 ### Requirements
 * macOS / linux
