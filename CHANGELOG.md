@@ -1,3 +1,8 @@
+## [1.11.2](https://github.com/semrel-extra/zx-semrel/compare/v1.11.1...v1.11.2) (2022-07-07)
+
+### Fixes & improvements
+* fix: update zx to v.7.0.7 ([0dfbe9a](https://github.com/semrel-extra/zx-semrel/commit/0dfbe9ab4a7ed1d95ad3e069dab6d39cf694cd1a))
+
 ## [1.11.1](https://github.com/semrel-extra/zx-semrel/compare/v1.11.0...v1.11.1) (2022-07-02)
 
 ### Fixes & improvements
