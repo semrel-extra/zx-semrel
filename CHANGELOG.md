@@ -1,3 +1,8 @@
+## [1.11.3](https://github.com/semrel-extra/zx-semrel/compare/v1.11.2...v1.11.3) (2022-07-07)
+
+### Fixes & improvements
+* fix: set npm --userconfig opt on publish ([cac137a](https://github.com/semrel-extra/zx-semrel/commit/cac137a67032a1371f4101f94a20d14df5084a43))
+
 ## [1.11.2](https://github.com/semrel-extra/zx-semrel/compare/v1.11.1...v1.11.2) (2022-07-07)
 
 ### Fixes & improvements
