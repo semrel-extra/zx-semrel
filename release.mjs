@@ -130,13 +130,13 @@ ${commits.join('\n')}`).join('\n')
 
   // Publish npm artifact
   console.log('npm publish to https://registry.npmjs.org')
-  await $`npm publish --no-git-tag-version --registry=https://registry.npmjs.org`
+  await $`npm publish --no-git-tag-version --registry='https://registry.npmjs.org/'`
 
   const alias = PKG_ALIAS || fs.readJSONSync('./package.json').alias
   if (alias) {
     console.log(`npm publish ${alias} to https://registry.npmjs.org`)
     await $`echo "\`jq '.name="${alias}"' package.json\`" > package.json`
-    await $`npm publish --no-git-tag-version --registry=https://registry.npmjs.org`
+    await $`npm publish --no-git-tag-version --registry='https://registry.npmjs.org/'`
   }
 
   console.log(`npm publish @${repoName} to https://npm.pkg.github.com`)
