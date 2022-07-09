@@ -122,12 +122,9 @@ ${commits.join('\n')}`).join('\n')
   await $`git tag -a ${nextTag} HEAD -m ${releaseMessage}`
   if (PUSH_MAJOR_TAG){
     const majorTag = nextTag.split('.')[0]
-    try {
-      await $`git tag -d ${majorTag}`
-      await $`git push origin :refs/tags/${majorTag}`
-    } finally {
-      await $`git tag -a ${majorTag} HEAD -m ${releaseMessage}`
-    }
+    await nothrow($`git tag -d ${majorTag}`)
+    await nothrow($`git push origin :refs/tags/${majorTag}`)
+    await $`git tag -a ${majorTag} HEAD -m ${releaseMessage}`
   }
   await $`git push --follow-tags origin HEAD:refs/heads/master`
 
