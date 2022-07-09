@@ -1,3 +1,8 @@
+## [1.13.1](https://github.com/semrel-extra/zx-semrel/compare/v1.13.0...v1.13.1) (2022-07-09)
+
+### Fixes & improvements
+* fix: nothrow on tag del ([685d57a](https://github.com/semrel-extra/zx-semrel/commit/685d57a03c761813de2c0f1002babcba52da06da))
+
 ## [1.13.0](https://github.com/semrel-extra/zx-semrel/compare/v1.12.0...v1.13.0) (2022-07-09)
 
 ### Features
