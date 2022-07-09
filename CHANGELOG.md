@@ -1,3 +1,9 @@
+## [1.13.0](https://github.com/semrel-extra/zx-semrel/compare/v1.12.0...v1.13.0) (2022-07-09)
+
+### Features
+* feat: add major tag push ([c6924b9](https://github.com/semrel-extra/zx-semrel/commit/c6924b94db1e11332219fd352fc6c45fb9f02298))
+* feat: let committer name and email be optional ([e98ad2c](https://github.com/semrel-extra/zx-semrel/commit/e98ad2cbf36dc143d22263dd821676b2c9b942b8))
+
 ## [1.12.0](https://github.com/semrel-extra/zx-semrel/compare/v1.11.3...v1.12.0) (2022-07-09)
 
 ### Features
