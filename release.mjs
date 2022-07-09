@@ -129,21 +129,24 @@ ${commits.join('\n')}`).join('\n')
   await $`curl -u ${GIT_COMMITTER_NAME}:${GITHUB_TOKEN} -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/${repoName}/releases -d ${releaseData}`
 
   // Publish npm artifact
-  const npmrc = path.resolve(process.cwd(), '.npmrc')
-  const npmjsRegistry = 'https://registry.npmjs.org/'
-  console.log(`npm publish to ${npmjsRegistry}`)
-  await $`npm publish --no-git-tag-version --registry=${npmjsRegistry} --userconfig ${npmrc}`
-
-  const alias = PKG_ALIAS || fs.readJSONSync('./package.json').alias
-  if (alias) {
-    console.log(`npm publish ${alias} to ${npmjsRegistry}`)
-    await $`echo "\`jq '.name="${alias}"' package.json\`" > package.json`
+  const pkgJson = fs.readJSONSync('./package.json')
+  if (!pkgJson.private) {
+    const npmrc = path.resolve(process.cwd(), '.npmrc')
+    const npmjsRegistry = 'https://registry.npmjs.org/'
+    console.log(`npm publish to ${npmjsRegistry}`)
     await $`npm publish --no-git-tag-version --registry=${npmjsRegistry} --userconfig ${npmrc}`
-  }
 
-  console.log(`npm publish @${repoName} to https://npm.pkg.github.com`)
-  await $`echo "\`jq '.name="@${repoName}"' package.json\`" > package.json`
-  await $`npm publish --no-git-tag-version --registry=https://npm.pkg.github.com --userconfig ${npmrc}`
+    const alias = PKG_ALIAS || pkgJson.alias
+    if (alias) {
+      console.log(`npm publish ${alias} to ${npmjsRegistry}`)
+      await $`echo "\`jq '.name="${alias}"' package.json\`" > package.json`
+      await $`npm publish --no-git-tag-version --registry=${npmjsRegistry} --userconfig ${npmrc}`
+    }
+
+    console.log(`npm publish @${repoName} to https://npm.pkg.github.com`)
+    await $`echo "\`jq '.name="@${repoName}"' package.json\`" > package.json`
+    await $`npm publish --no-git-tag-version --registry=https://npm.pkg.github.com`
+  }
 
   console.log(chalk.bold('Great success!'))
 })()
