@@ -4,7 +4,7 @@
   $.noquote = async (...args) => { const q = $.quote; $.quote = v => v; const p = $(...args); p; $.quote = q; return p }
 
   // Git configuration
-  const {GH_USER, GIT_COMMITTER_NAME, GIT_COMMITTER_EMAIL, GITHUB_TOKEN, PKG_ALIAS} = process.env
+  const {GH_USER, GIT_COMMITTER_NAME, GIT_COMMITTER_EMAIL, GITHUB_TOKEN, PKG_ALIAS, PUSH_MAJOR_TAG} = process.env
   if (!GITHUB_TOKEN || !(GH_USER || GIT_COMMITTER_NAME)) {
     throw new Error('env.GITHUB_TOKEN, env.GH_TOKEN must be set')
   }
@@ -120,6 +120,15 @@ ${commits.join('\n')}`).join('\n')
   await $`git add -A .`
   await $`git commit -am ${releaseMessage}`
   await $`git tag -a ${nextTag} HEAD -m ${releaseMessage}`
+  if (PUSH_MAJOR_TAG){
+    const majorTag = nextTag.split('.')[0]
+    try {
+      await $`git tag -d ${majorTag}`
+      await $`git push origin :refs/tags/${majorTag}`
+    } finally {
+      await $`git tag -a ${majorTag} HEAD -m ${releaseMessage}`
+    }
+  }
   await $`git push --follow-tags origin HEAD:refs/heads/master`
 
   // Push GitHub release
