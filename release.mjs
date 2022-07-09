@@ -4,18 +4,21 @@
   $.noquote = async (...args) => { const q = $.quote; $.quote = v => v; const p = $(...args); p; $.quote = q; return p }
 
   // Git configuration
-  const {GIT_COMMITTER_NAME, GIT_COMMITTER_EMAIL, GITHUB_TOKEN, PKG_ALIAS} = process.env
-  if (!GITHUB_TOKEN || !GIT_COMMITTER_NAME || !GIT_COMMITTER_EMAIL) {
-    throw new Error('env.GITHUB_TOKEN, env.GIT_COMMITTER_NAME & env.GIT_COMMITTER_EMAIL must be set')
+  const {GH_USER, GIT_COMMITTER_NAME, GIT_COMMITTER_EMAIL, GITHUB_TOKEN, PKG_ALIAS} = process.env
+  if (!GITHUB_TOKEN || !(GH_USER || GIT_COMMITTER_NAME)) {
+    throw new Error('env.GITHUB_TOKEN, env.GH_TOKEN must be set')
   }
 
-  const gitAuth = `${GIT_COMMITTER_NAME}:${GITHUB_TOKEN}`
+  const ghUser = GH_USER || GIT_COMMITTER_NAME // Legacy fallback
+  const gitCommitterName =  GIT_COMMITTER_NAME || 'Semrel Extra Bot'
+  const gitCommitterEmail = GIT_COMMITTER_EMAIL || 'semrel-extra-bot@hotmail.com'
+  const gitAuth = `${ghUser}:${GITHUB_TOKEN}`
   const originUrl = (await $`git config --get remote.origin.url`).toString().trim()
   const [,,repoHost, repoName] = originUrl.replace(':', '/').replace(/\.git/, '').match(/.+(@|\/\/)([^/]+)\/(.+)$/)
   const repoPublicUrl = `https://${repoHost}/${repoName}`
   const repoAuthedUrl = `https://${gitAuth}@${repoHost}/${repoName}`
-  await $`git config user.name ${GIT_COMMITTER_NAME}`
-  await $`git config user.email ${GIT_COMMITTER_EMAIL}`
+  await $`git config user.name ${gitCommitterName}`
+  await $`git config user.email ${gitCommitterEmail}`
   await $`git remote set-url origin ${repoAuthedUrl}`
 
   // Commits analysis
