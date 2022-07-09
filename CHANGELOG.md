@@ -1,3 +1,8 @@
+## [1.12.0](https://github.com/semrel-extra/zx-semrel/compare/v1.11.3...v1.12.0) (2022-07-09)
+
+### Features
+* feat: do not publish npm private ([1ef429f](https://github.com/semrel-extra/zx-semrel/commit/1ef429f042805026eb16523143b704eb282dc73b))
+
 ## [1.11.3](https://github.com/semrel-extra/zx-semrel/compare/v1.11.2...v1.11.3) (2022-07-07)
 
 ### Fixes & improvements
