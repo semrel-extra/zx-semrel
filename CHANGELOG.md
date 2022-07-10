@@ -1,3 +1,8 @@
+## [1.14.1](https://github.com/semrel-extra/zx-semrel/compare/v1.14.0...v1.14.1) (2022-07-10)
+
+### Fixes & improvements
+* fix: fix npm publish ([4e88806](https://github.com/semrel-extra/zx-semrel/commit/4e88806bda0bde33ed9312a3d25ffa07c88ebb70))
+
 ## [1.14.0](https://github.com/semrel-extra/zx-semrel/compare/v1.13.5...v1.14.0) (2022-07-10)
 
 ### Features
