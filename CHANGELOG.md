@@ -1,3 +1,8 @@
+## [1.13.5](https://github.com/semrel-extra/zx-semrel/compare/v1.13.4...v1.13.5) (2022-07-10)
+
+### Fixes & improvements
+* fix: dont require GH_USER env ([335bfcf](https://github.com/semrel-extra/zx-semrel/commit/335bfcf91e7ad69aad78fef4e33c6bddc027d2be))
+
 ## [1.13.4](https://github.com/semrel-extra/zx-semrel/compare/v1.13.3...v1.13.4) (2022-07-10)
 
 ### Fixes & improvements
