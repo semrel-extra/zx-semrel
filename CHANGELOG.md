@@ -1,3 +1,8 @@
+## [1.13.4](https://github.com/semrel-extra/zx-semrel/compare/v1.13.3...v1.13.4) (2022-07-10)
+
+### Fixes & improvements
+* perf: tech reelase ([b9e404c](https://github.com/semrel-extra/zx-semrel/commit/b9e404cd52a034808c3f4eb53c49d93e2c098f64))
+
 ## [1.13.3](https://github.com/semrel-extra/zx-semrel/compare/v1.13.2...v1.13.3) (2022-07-10)
 
 ### Fixes & improvements
