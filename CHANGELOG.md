@@ -1,3 +1,8 @@
+## [1.14.0](https://github.com/semrel-extra/zx-semrel/compare/v1.13.5...v1.14.0) (2022-07-10)
+
+### Features
+* feat: let pkgJson.alias be an array ([f5d7261](https://github.com/semrel-extra/zx-semrel/commit/f5d72614b0df0b46233cace2dc28d6efc63ede9b))
+
 ## [1.13.5](https://github.com/semrel-extra/zx-semrel/compare/v1.13.4...v1.13.5) (2022-07-10)
 
 ### Fixes & improvements
