@@ -138,14 +138,12 @@ ${commits.join('\n')}`).join('\n')
   // Publish npm artifact
   const pkgJson = fs.readJSONSync('./package.json')
   if (!pkgJson.private) {
+    const aliases = [pkgJson.version, PKG_ALIAS || pkgJson.alias].flat(1).filter(Boolean)
     const npmrc = path.resolve(process.cwd(), '.npmrc')
     const npmjsRegistry = 'https://registry.npmjs.org/'
-    console.log(`npm publish to ${npmjsRegistry}`)
-    await $`npm publish --no-git-tag-version --registry=${npmjsRegistry} --userconfig ${npmrc}`
 
-    const alias = PKG_ALIAS || pkgJson.alias
-    if (alias) {
-      console.log(`npm publish ${alias} to ${npmjsRegistry}`)
+    for (const alias of aliases) {
+      console.log(`npm publish ${alias} ${pkgJson.version} to ${npmjsRegistry}`)
       await $`echo "\`jq '.name="${alias}"' package.json\`" > package.json`
       await $`npm publish --no-git-tag-version --registry=${npmjsRegistry} --userconfig ${npmrc}`
     }
