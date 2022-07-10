@@ -124,7 +124,7 @@ ${commits.join('\n')}`).join('\n')
   if (PUSH_MAJOR_TAG){
     const majorTag = nextTag.split('.')[0]
     await $`git tag -fa ${majorTag} HEAD -m ${releaseMessage}`
-    await $`git push -f origin ${majorTag}`
+    await $`git push --follow-tags -f origin ${majorTag}`
   }
 
   // Push GitHub release
