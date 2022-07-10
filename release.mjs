@@ -120,13 +120,12 @@ ${commits.join('\n')}`).join('\n')
   await $`git add -A .`
   await $`git commit -am ${releaseMessage}`
   await $`git tag -a ${nextTag} HEAD -m ${releaseMessage}`
+  await $`git push --follow-tags origin HEAD:refs/heads/master`
   if (PUSH_MAJOR_TAG){
     const majorTag = nextTag.split('.')[0]
-    await nothrow($`git tag -d ${majorTag}`)
-    await nothrow($`git push origin :refs/tags/${majorTag}`)
-    await $`git tag -a ${majorTag} HEAD -m ${releaseMessage}`
+    await $`git tag -fa ${majorTag} HEAD -m ${releaseMessage}`
+    await $`git push -f origin ${majorTag}`
   }
-  await $`git push --follow-tags origin HEAD:refs/heads/master`
 
   // Push GitHub release
   const releaseData = JSON.stringify({
