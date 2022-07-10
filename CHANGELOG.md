@@ -1,3 +1,8 @@
+## [1.13.2](https://github.com/semrel-extra/zx-semrel/compare/v1.13.1...v1.13.2) (2022-07-10)
+
+### Fixes & improvements
+* perf: tech release ([38775ed](https://github.com/semrel-extra/zx-semrel/commit/38775ed5c684217c9a9ff7e344a331fcdf9962e6))
+
 ## [1.13.1](https://github.com/semrel-extra/zx-semrel/compare/v1.13.0...v1.13.1) (2022-07-09)
 
 ### Fixes & improvements
