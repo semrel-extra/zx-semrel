@@ -1,3 +1,8 @@
+## [1.13.3](https://github.com/semrel-extra/zx-semrel/compare/v1.13.2...v1.13.3) (2022-07-10)
+
+### Fixes & improvements
+* perf: simplify major tag push ([2498381](https://github.com/semrel-extra/zx-semrel/commit/24983818182b48da5dcb063cc17e34cc191a69b2))
+
 ## [1.13.2](https://github.com/semrel-extra/zx-semrel/compare/v1.13.1...v1.13.2) (2022-07-10)
 
 ### Fixes & improvements
