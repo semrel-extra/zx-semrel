@@ -1,3 +1,8 @@
+## [1.14.2](https://github.com/semrel-extra/zx-semrel/compare/v1.14.1...v1.14.2) (2022-07-20)
+
+### Fixes & improvements
+* perf: use token auth instead of basic auth for github api calls ([837d762](https://github.com/semrel-extra/zx-semrel/commit/837d7627c9725b1164f426f6669d938e5575a372))
+
 ## [1.14.1](https://github.com/semrel-extra/zx-semrel/compare/v1.14.0...v1.14.1) (2022-07-10)
 
 ### Fixes & improvements
