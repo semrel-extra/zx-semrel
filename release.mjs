@@ -133,7 +133,7 @@ ${commits.join('\n')}`).join('\n')
     body: releaseNotes
   })
   console.log('github release')
-  await $`curl -u ${GIT_COMMITTER_NAME}:${GITHUB_TOKEN} -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/${repoName}/releases -d ${releaseData}`
+  await $`curl -H "Authorization: token ${GITHUB_TOKEN}" -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/${repoName}/releases -d ${releaseData}`
 
   // Publish npm artifact
   const pkgJson = fs.readJSONSync('./package.json')
