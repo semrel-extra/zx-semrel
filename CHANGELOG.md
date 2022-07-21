@@ -1,3 +1,8 @@
+## [1.15.1](https://github.com/semrel-extra/zx-semrel/compare/v1.15.0...v1.15.1) (2022-07-21)
+
+### Fixes & improvements
+* fix: let github registry use global npmrc ([4f2a990](https://github.com/semrel-extra/zx-semrel/commit/4f2a990a4bcf70de7a78b1418b8c0a96691d8ead))
+
 ## [1.15.0](https://github.com/semrel-extra/zx-semrel/compare/v1.14.3...v1.15.0) (2022-07-21)
 
 ### Features
