@@ -1,3 +1,8 @@
+## [1.15.0](https://github.com/semrel-extra/zx-semrel/compare/v1.14.3...v1.15.0) (2022-07-21)
+
+### Features
+* feat: handle env.NPM_TOKEN ([677155a](https://github.com/semrel-extra/zx-semrel/commit/677155a622e9a5edf00afb69e35c900e76ec6fe3))
+
 ## [1.14.3](https://github.com/semrel-extra/zx-semrel/compare/v1.14.2...v1.14.3) (2022-07-21)
 
 ### Fixes & improvements
