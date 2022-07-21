@@ -144,7 +144,7 @@ ${commits.join('\n')}`).join('\n')
 
     for (const alias of aliases) {
       console.log(`npm publish ${alias} ${pkgJson.version} to ${npmjsRegistry}`)
-      await $`echo "\`jq '.name="${alias}"' package.json\`" > package.json`
+      await $.noquote`echo "\`jq '.name="${alias}"' package.json\`" > package.json`
       await $`npm publish --no-git-tag-version --registry=${npmjsRegistry} --userconfig ${npmrc}`
     }
 
