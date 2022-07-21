@@ -4,7 +4,7 @@
   $.noquote = async (...args) => { const q = $.quote; $.quote = v => v; const p = $(...args); p; $.quote = q; return p }
 
   // Git configuration
-  const {GIT_COMMITTER_NAME, GIT_COMMITTER_EMAIL, GITHUB_TOKEN, PKG_ALIAS, PUSH_MAJOR_TAG} = process.env
+  const {GIT_COMMITTER_NAME, GIT_COMMITTER_EMAIL, GITHUB_TOKEN, PKG_ALIAS, PUSH_MAJOR_TAG, NPM_TOKEN} = process.env
   if (!GITHUB_TOKEN) {
     throw new Error('env.GITHUB_TOKEN must be set')
   }
@@ -139,8 +139,18 @@ ${commits.join('\n')}`).join('\n')
   const pkgJson = fs.readJSONSync('./package.json')
   if (!pkgJson.private) {
     const aliases = [pkgJson.name, PKG_ALIAS || pkgJson.alias].flat(1).filter(Boolean)
-    const npmrc = path.resolve(process.cwd(), '.npmrc')
     const npmjsRegistry = 'https://registry.npmjs.org/'
+    const npmrc = (() => {
+      let _npmrc = path.resolve(process.cwd(), '.npmrc')
+      if (fs.existsSync(_npmrc)) return _npmrc
+
+      _npmrc = path.resolve(fs.realpathSync(os.tmpdir()), 'zx-semrel', Math.random().toString(36).substring(2), '.npmrc')
+      fs.outputFileSync(_npmrc, `
+//registry.npmjs.org/:_authToken=${NPM_TOKEN}
+//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+`)
+      return _npmrc
+    })()
 
     for (const alias of aliases) {
       console.log(`npm publish ${alias} ${pkgJson.version} to ${npmjsRegistry}`)
@@ -150,7 +160,7 @@ ${commits.join('\n')}`).join('\n')
 
     console.log(`npm publish @${repoName} to https://npm.pkg.github.com`)
     await $`echo "\`jq '.name="@${repoName}"' package.json\`" > package.json`
-    await $`npm publish --no-git-tag-version --registry=https://npm.pkg.github.com`
+    await $`npm publish --no-git-tag-version --registry=https://npm.pkg.github.com --userconfig ${npmrc}`
   }
 
   console.log(chalk.bold('Great success!'))
