@@ -1,3 +1,8 @@
+## [1.14.3](https://github.com/semrel-extra/zx-semrel/compare/v1.14.2...v1.14.3) (2022-07-21)
+
+### Fixes & improvements
+* fix: fix pk name subs ([d3688e2](https://github.com/semrel-extra/zx-semrel/commit/d3688e25b5feba9b4511c28376bd9ef2fc69cb02))
+
 ## [1.14.2](https://github.com/semrel-extra/zx-semrel/compare/v1.14.1...v1.14.2) (2022-07-20)
 
 ### Fixes & improvements
