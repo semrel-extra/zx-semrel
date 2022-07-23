@@ -1,3 +1,8 @@
+## [1.17.1](https://github.com/semrel-extra/zx-semrel/compare/v1.17.0...v1.17.1) (2022-07-23)
+
+### Fixes & improvements
+* fix: use gh access toke for npm.pkg.github.com registry ([c838690](https://github.com/semrel-extra/zx-semrel/commit/c83869035e550dbc3482e07bdbea5bccb2644d5d))
+
 ## [1.17.0](https://github.com/semrel-extra/zx-semrel/compare/v1.16.1...v1.17.0) (2022-07-23)
 
 ### Features
