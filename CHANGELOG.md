@@ -1,3 +1,8 @@
+## [1.16.0](https://github.com/semrel-extra/zx-semrel/compare/v1.15.1...v1.16.0) (2022-07-23)
+
+### Features
+* feat: add `debug` and `dry-run` flags ([b9a2573](https://github.com/semrel-extra/zx-semrel/commit/b9a25734a0bfc6263d26248ba7a3ef4e29deffa2))
+
 ## [1.15.1](https://github.com/semrel-extra/zx-semrel/compare/v1.15.0...v1.15.1) (2022-07-21)
 
 ### Fixes & improvements
