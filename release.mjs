@@ -18,9 +18,6 @@
   const [,,repoHost, repoName] = originUrl.replace(':', '/').replace(/\.git/, '').match(/.+(@|\/\/)([^/]+)\/(.+)$/)
   const repoPublicUrl = `https://${repoHost}/${repoName}`
   const repoAuthedUrl = `https://${gitAuth}@${repoHost}/${repoName}`
-  await $`git config user.name ${gitCommitterName}`
-  await $`git config user.email ${gitCommitterEmail}`
-  await $`git remote set-url origin ${repoAuthedUrl}`
 
   // Commits analysis
   const semanticTagPattern = /^v?(\d+)\.(\d+)\.(\d+)$/
@@ -114,9 +111,11 @@ ${commits.join('\n')}`).join('\n')
   // Update package.json version
   await $`npm --no-git-tag-version version ${nextVersion}`
 
-  if (dryRun) {
-    return
-  }
+  if (dryRun)  return
+
+  await $`git config user.name ${gitCommitterName}`
+  await $`git config user.email ${gitCommitterEmail}`
+  await $`git remote set-url origin ${repoAuthedUrl}`
 
   // Prepare git commit and push
   // Hint: PAT may be replaced with a SSH deploy token
