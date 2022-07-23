@@ -4,13 +4,13 @@
   $.noquote = async (...args) => { const q = $.quote; $.quote = v => v; const p = $(...args); p; $.quote = q; return p }
 
   // Git configuration
-  const {GIT_COMMITTER_NAME, GIT_COMMITTER_EMAIL, GITHUB_TOKEN, PKG_ALIAS, PUSH_MAJOR_TAG, NPM_TOKEN, DEBUG} = process.env
+  const {GIT_COMMITTER_NAME, GIT_COMMITTER_EMAIL, GITHUB_TOKEN, PKG_ALIAS, PUSH_MAJOR_TAG, NPM_TOKEN, DEBUG, DRY_RUN} = process.env
   if (!GITHUB_TOKEN) {
     throw new Error('env.GITHUB_TOKEN must be set')
   }
 
   const debug = DEBUG || argv['debug']
-  const dryRun = argv['dry-run']
+  const dryRun = DRY_RUN || argv['dry-run']
   const gitCommitterName = GIT_COMMITTER_NAME || 'Semrel Extra Bot'
   const gitCommitterEmail = GIT_COMMITTER_EMAIL || 'semrel-extra-bot@hotmail.com'
   const gitAuth = GITHUB_TOKEN
