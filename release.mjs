@@ -153,6 +153,7 @@ ${commits.join('\n')}`).join('\n')
       _npmrc = path.resolve(fs.realpathSync(os.tmpdir()), 'zx-semrel', Math.random().toString(36).substring(2), '.npmrc')
       fs.outputFileSync(_npmrc, `
 //registry.npmjs.org/:_authToken=${NPM_TOKEN}
+//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
 `)
       return _npmrc
     })()
@@ -165,7 +166,7 @@ ${commits.join('\n')}`).join('\n')
 
     console.log(`npm publish @${repoName} to https://npm.pkg.github.com`)
     await $`echo "\`jq '.name="@${repoName}"' package.json\`" > package.json`
-    await $`npm publish --no-git-tag-version --registry=https://npm.pkg.github.com`
+    await $`npm publish --no-git-tag-version --registry=https://npm.pkg.github.com/ --userconfig ${npmrc}`
   }
 
   console.log(chalk.bold('Great success!'))
