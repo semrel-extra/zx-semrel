@@ -4,11 +4,13 @@
   $.noquote = async (...args) => { const q = $.quote; $.quote = v => v; const p = $(...args); p; $.quote = q; return p }
 
   // Git configuration
-  const {GIT_COMMITTER_NAME, GIT_COMMITTER_EMAIL, GITHUB_TOKEN, PKG_ALIAS, PUSH_MAJOR_TAG, NPM_TOKEN} = process.env
+  const {GIT_COMMITTER_NAME, GIT_COMMITTER_EMAIL, GITHUB_TOKEN, PKG_ALIAS, PUSH_MAJOR_TAG, NPM_TOKEN, DEBUG} = process.env
   if (!GITHUB_TOKEN) {
     throw new Error('env.GITHUB_TOKEN must be set')
   }
 
+  const debug = DEBUG || argv['debug']
+  const dryRun = argv['dry-run']
   const gitCommitterName = GIT_COMMITTER_NAME || 'Semrel Extra Bot'
   const gitCommitterEmail = GIT_COMMITTER_EMAIL || 'semrel-extra-bot@hotmail.com'
   const gitAuth = GITHUB_TOKEN
@@ -21,7 +23,7 @@
   await $`git remote set-url origin ${repoAuthedUrl}`
 
   // Commits analysis
-  const semanticTagPattern = /^(v?)(\d+)\.(\d+)\.(\d+)$/
+  const semanticTagPattern = /^v?(\d+)\.(\d+)\.(\d+)$/
   const releaseSeverityOrder = ['major', 'minor', 'patch']
   const semanticRules = [
     {group: 'Features', releaseType: 'minor', prefixes: ['feat']},
@@ -62,6 +64,7 @@
     return acc
   }, [])
   console.log('semanticChanges=', semanticChanges)
+  debug && console.log('tags', tags)
 
   const nextReleaseType = releaseSeverityOrder.find(type => semanticChanges.find(({releaseType}) => type === releaseType))
   if (!nextReleaseType) {
@@ -76,7 +79,7 @@
       return '1.0.0'
     }
 
-    const [, , c1, c2, c3] = semanticTagPattern.exec(lastTag)
+    const [, c1, c2, c3] = semanticTagPattern.exec(lastTag)
     if (releaseType === 'major') {
       return `${-~c1}.0.0`
     }
@@ -110,6 +113,10 @@ ${commits.join('\n')}`).join('\n')
 
   // Update package.json version
   await $`npm --no-git-tag-version version ${nextVersion}`
+
+  if (dryRun) {
+    return
+  }
 
   // Prepare git commit and push
   // Hint: PAT may be replaced with a SSH deploy token
