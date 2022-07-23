@@ -1,3 +1,8 @@
+## [1.17.0](https://github.com/semrel-extra/zx-semrel/compare/v1.16.1...v1.17.0) (2022-07-23)
+
+### Features
+* feat: handle env.DRY_RUN ([db554bd](https://github.com/semrel-extra/zx-semrel/commit/db554bda8c8784f663204b31dca254f0e7754720))
+
 ## [1.16.1](https://github.com/semrel-extra/zx-semrel/compare/v1.16.0...v1.16.1) (2022-07-23)
 
 ### Fixes & improvements
