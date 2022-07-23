@@ -1,3 +1,8 @@
+## [1.16.1](https://github.com/semrel-extra/zx-semrel/compare/v1.16.0...v1.16.1) (2022-07-23)
+
+### Fixes & improvements
+* perf: move side effects below `dry-run` check ([8adcb14](https://github.com/semrel-extra/zx-semrel/commit/8adcb1406502a9ac3116a7a0ffca6c8c3b8574e1))
+
 ## [1.16.0](https://github.com/semrel-extra/zx-semrel/compare/v1.15.1...v1.16.0) (2022-07-23)
 
 ### Features
