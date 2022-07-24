@@ -17,7 +17,7 @@
   const originUrl = (await $`git config --get remote.origin.url`).toString().trim()
   const [,,repoHost, repoName] = originUrl.replace(':', '/').replace(/\.git/, '').match(/.+(@|\/\/)([^/]+)\/(.+)$/)
   const repoPublicUrl = `https://${repoHost}/${repoName}`
-  const repoAuthedUrl = `https://${gitAuth}@${repoHost}/${repoName}`
+  const repoAuthedUrl = `https://${gitAuth}@${repoHost}/${repoName}.git`
 
   // Commits analysis
   const semanticTagPattern = /^v?(\d+)\.(\d+)\.(\d+)$/
