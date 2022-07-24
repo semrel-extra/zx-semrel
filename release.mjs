@@ -115,7 +115,7 @@ ${commits.join('\n')}`).join('\n')
 
   await $`git config user.name ${gitCommitterName}`
   await $`git config user.email ${gitCommitterEmail}`
-  await $`git remote add origin ${repoAuthedUrl}`
+  await $`git remote set-url origin ${repoAuthedUrl}`
 
   // Prepare git commit and push
   // Hint: PAT may be replaced with a SSH deploy token
