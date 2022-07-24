@@ -1,3 +1,12 @@
+## [1.18.0](https://github.com/semrel-extra/zx-semrel/compare/v1.17.1...v1.18.0) (2022-07-24)
+
+### Fixes & improvements
+* fix: fix repoAuthedUrl ([224a5c9](https://github.com/semrel-extra/zx-semrel/commit/224a5c9760f21e8d4b6c74cc09b12ccf1a8b7cb1))
+* fix: revert NPM_TOKEN check ([98e8ba1](https://github.com/semrel-extra/zx-semrel/commit/98e8ba1875d8a20b2593671b810747a4ce5b4832))
+
+### Features
+* feat: assert env.NPM value on start ([0453498](https://github.com/semrel-extra/zx-semrel/commit/0453498907648bd0d8bd4c5bb254666f9ef8c7c1))
+
 ## [1.17.1](https://github.com/semrel-extra/zx-semrel/compare/v1.17.0...v1.17.1) (2022-07-23)
 
 ### Fixes & improvements
