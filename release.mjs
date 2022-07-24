@@ -5,8 +5,8 @@
 
   // Git configuration
   const {GIT_COMMITTER_NAME, GIT_COMMITTER_EMAIL, GITHUB_TOKEN, PKG_ALIAS, PUSH_MAJOR_TAG, NPM_TOKEN, DEBUG, DRY_RUN} = process.env
-  if (!GITHUB_TOKEN) {
-    throw new Error('env.GITHUB_TOKEN must be set')
+  if (!GITHUB_TOKEN || !NPM_TOKEN) {
+    throw new Error('env.GITHUB_TOKEN and env.NPM_TOKEN must be set')
   }
 
   const debug = DEBUG || argv['debug']
