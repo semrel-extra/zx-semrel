@@ -42,7 +42,7 @@
 
   const semanticChanges = newCommits.reduce((acc, {subj, body, short, hash}) => {
     semanticRules.forEach(({group, releaseType, prefixes, keywords}) => {
-      const prefixMatcher = prefixes && new RegExp(`^(${prefixes.join('|')})(\\(\\w+\\))?:\\s.+$`)
+      const prefixMatcher = prefixes && new RegExp(`^(${prefixes.join('|')})(\\([a-z0-9\\-_]+\\))?:\\s.+$`)
       const keywordsMatcher = keywords && new RegExp(`(${keywords.join('|')}):\\s(.+)`)
       const change = subj.match(prefixMatcher)?.[0] || body.match(keywordsMatcher)?.[2]
 
