@@ -1,3 +1,8 @@
+## [1.18.1](https://github.com/semrel-extra/zx-semrel/compare/v1.18.0...v1.18.1) (2022-08-25)
+
+### Fixes & improvements
+* fix: fix commit analyzer regexp ([49f9521](https://github.com/semrel-extra/zx-semrel/commit/49f95215fffaee9038f965dadd7b1e1cf69036b2))
+
 ## [1.18.0](https://github.com/semrel-extra/zx-semrel/compare/v1.17.1...v1.18.0) (2022-07-24)
 
 ### Fixes & improvements
