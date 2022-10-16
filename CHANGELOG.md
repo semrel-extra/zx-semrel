@@ -1,3 +1,8 @@
+## [1.18.2](https://github.com/semrel-extra/zx-semrel/compare/v1.18.1...v1.18.2) (2022-10-16)
+
+### Fixes & improvements
+* perf: update zx to fix node-fetch vuls ([f6a092a](https://github.com/semrel-extra/zx-semrel/commit/f6a092ad7e7a96a305a550eeafe66ff756ff3d3c))
+
 ## [1.18.1](https://github.com/semrel-extra/zx-semrel/compare/v1.18.0...v1.18.1) (2022-08-25)
 
 ### Fixes & improvements
