@@ -4,20 +4,21 @@
   $.noquote = async (...args) => { const q = $.quote; $.quote = v => v; const p = $(...args); p; $.quote = q; return p }
 
   // Git configuration
-  const {GIT_COMMITTER_NAME, GIT_COMMITTER_EMAIL, GITHUB_TOKEN, PKG_ALIAS, PUSH_MAJOR_TAG, NPM_TOKEN, DEBUG, DRY_RUN} = process.env
-  if (!GITHUB_TOKEN) {
-    throw new Error('env.GITHUB_TOKEN must be set')
+  const {GIT_COMMITTER_NAME, GIT_COMMITTER_EMAIL, GITHUB_TOKEN, GH_TOKEN, PKG_ALIAS, PUSH_MAJOR_TAG, NPM_TOKEN, DEBUG, DRY_RUN} = process.env
+  const githubAuth = GITHUB_TOKEN || GH_TOKEN
+
+  if (!githubAuth) {
+    throw new Error('env.GITHUB_TOKEN or GH_TOKEN is required')
   }
 
   const debug = DEBUG || argv['debug']
   const dryRun = DRY_RUN || argv['dry-run']
   const gitCommitterName = GIT_COMMITTER_NAME || 'Semrel Extra Bot'
   const gitCommitterEmail = GIT_COMMITTER_EMAIL || 'semrel-extra-bot@hotmail.com'
-  const gitAuth = GITHUB_TOKEN
   const originUrl = (await $`git config --get remote.origin.url`).toString().trim()
   const [,,repoHost, repoName] = originUrl.replace(':', '/').replace(/\.git/, '').match(/.+(@|\/\/)([^/]+)\/(.+)$/)
   const repoPublicUrl = `https://${repoHost}/${repoName}`
-  const repoAuthedUrl = `https://${gitAuth}@${repoHost}/${repoName}.git`
+  const repoAuthedUrl = `https://${githubAuth}@${repoHost}/${repoName}.git`
 
   // Commits analysis
   const semanticTagPattern = /^v?(\d+)\.(\d+)\.(\d+)$/
@@ -139,7 +140,7 @@ ${commits.join('\n')}`).join('\n')
     body: releaseNotes
   })
   console.log('github release')
-  await $`curl -H "Authorization: token ${GITHUB_TOKEN}" -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/${repoName}/releases -d ${releaseData}`
+  await $`curl -H "Authorization: token ${githubAuth}" -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/${repoName}/releases -d ${releaseData}`
 
   // Publish npm artifact
   const pkgJson = fs.readJSONSync('./package.json')
@@ -153,7 +154,7 @@ ${commits.join('\n')}`).join('\n')
       _npmrc = path.resolve(fs.realpathSync(os.tmpdir()), 'zx-semrel', Math.random().toString(36).substring(2), '.npmrc')
       fs.outputFileSync(_npmrc, `
 //registry.npmjs.org/:_authToken=${NPM_TOKEN}
-//npm.pkg.github.com/:_authToken=${GITHUB_TOKEN}
+//npm.pkg.github.com/:_authToken=${githubAuth}
 `)
       return _npmrc
     })()
