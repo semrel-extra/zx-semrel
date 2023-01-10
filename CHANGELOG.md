@@ -1,3 +1,8 @@
+## [1.19.0](https://github.com/semrel-extra/zx-semrel/compare/v1.18.2...v1.19.0) (2023-01-10)
+
+### Features
+* feat: introduce GH_TOKEN alias for GITHUB_TOKEN ([b771d72](https://github.com/semrel-extra/zx-semrel/commit/b771d72ffe5fcac9155a0ab8cb1f2bf388e72fb8))
+
 ## [1.18.2](https://github.com/semrel-extra/zx-semrel/compare/v1.18.1...v1.18.2) (2022-10-16)
 
 ### Fixes & improvements
