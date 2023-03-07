@@ -145,7 +145,7 @@ ${commits.join('\n')}`).join('\n')
   // Publish npm artifact
   const pkgJson = fs.readJSONSync('./package.json')
   if (!pkgJson.private) {
-    const aliases = [pkgJson.name, PKG_ALIAS || pkgJson.alias].flat(1).filter(Boolean)
+    const aliases = new Set([pkgJson.name, PKG_ALIAS || pkgJson.alias].flat(1).filter(Boolean))
     const npmjsRegistry = 'https://registry.npmjs.org/'
     const npmrc = (() => {
       let _npmrc = path.resolve(process.cwd(), '.npmrc')
