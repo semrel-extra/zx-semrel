@@ -1,3 +1,8 @@
+## [1.19.1](https://github.com/semrel-extra/zx-semrel/compare/v1.19.0...v1.19.1) (2023-03-07)
+
+### Fixes & improvements
+* fix: require unique pkg aliases ([c4d9072](https://github.com/semrel-extra/zx-semrel/commit/c4d90724e308823eea4ab6884379b81597b7b963))
+
 ## [1.19.0](https://github.com/semrel-extra/zx-semrel/compare/v1.18.2...v1.19.0) (2023-01-10)
 
 ### Features
