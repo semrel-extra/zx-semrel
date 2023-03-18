@@ -29,6 +29,7 @@
     {group: 'BREAKING CHANGES', releaseType: 'major', keywords: ['BREAKING CHANGE', 'BREAKING CHANGES']},
   ]
 
+  const pkgJson = fs.readJSONSync('./package.json')
   const tags = (await $`git tag -l --sort=-v:refname`).toString().split('\n').map(tag => tag.trim())
   const lastTag = tags.find(tag => semanticTagPattern.test(tag))
   const commitsRange = lastTag ? `${(await $`git rev-list -1 ${lastTag}`).toString().trim()}..HEAD` : 'HEAD'
@@ -74,7 +75,7 @@
       return
     }
     if (!lastTag) {
-      return '1.0.0'
+      return pkgJson.version || '1.0.0'
     }
 
     const [, c1, c2, c3] = semanticTagPattern.exec(lastTag)
@@ -143,7 +144,6 @@ ${commits.join('\n')}`).join('\n')
   await $`curl -H "Authorization: token ${githubAuth}" -H "Accept: application/vnd.github.v3+json" https://api.github.com/repos/${repoName}/releases -d ${releaseData}`
 
   // Publish npm artifact
-  const pkgJson = fs.readJSONSync('./package.json')
   if (!pkgJson.private) {
     const aliases = new Set([pkgJson.name, PKG_ALIAS || pkgJson.alias].flat(1).filter(Boolean))
     const npmjsRegistry = 'https://registry.npmjs.org/'
