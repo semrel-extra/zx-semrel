@@ -1,3 +1,8 @@
+## [1.20.0](https://github.com/semrel-extra/zx-semrel/compare/v1.19.1...v1.20.0) (2023-03-18)
+
+### Features
+* feat: use pkg.json `version` as default ([2bb8eb9](https://github.com/semrel-extra/zx-semrel/commit/2bb8eb9b9a63c88c98cfa01b14b7dc6c6783de73))
+
 ## [1.19.1](https://github.com/semrel-extra/zx-semrel/compare/v1.19.0...v1.19.1) (2023-03-07)
 
 ### Fixes & improvements
