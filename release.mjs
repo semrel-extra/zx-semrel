@@ -111,7 +111,7 @@ ${commits.join('\n')}`).join('\n')
   await $`echo ${releaseNotes}"\n$(cat ./CHANGELOG.md)" > ./CHANGELOG.md`
 
   // Update package.json version
-  await $`npm --no-git-tag-version version ${nextVersion}`
+  await $`npm --no-git-tag-version --allow-same-version version ${nextVersion}`
 
   if (dryRun)  return
 
