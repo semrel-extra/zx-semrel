@@ -1,3 +1,8 @@
+## [1.20.1](https://github.com/semrel-extra/zx-semrel/compare/v1.20.0...v1.20.1) (2023-04-06)
+
+### Fixes & improvements
+* fix: add `--allow-same-version` for `npm version` invoke ([64cfdcd](https://github.com/semrel-extra/zx-semrel/commit/64cfdcd6174f270d97224f1b24cafdd796fec5a4))
+
 ## [1.20.0](https://github.com/semrel-extra/zx-semrel/compare/v1.19.1...v1.20.0) (2023-03-18)
 
 ### Features
