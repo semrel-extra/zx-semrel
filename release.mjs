@@ -160,12 +160,12 @@ ${commits.join('\n')}`).join('\n')
     })()
 
     for (const alias of aliases) {
-      console.log(`npm publish ${alias} ${pkgJson.version} to ${npmjsRegistry}`)
+      console.log(`npm publish ${alias} ${nextVersion} to ${npmjsRegistry}`)
       await $.noquote`echo "\`jq '.name="${alias}"' package.json\`" > package.json`
       await $`npm publish --no-git-tag-version --registry=${npmjsRegistry} --userconfig ${npmrc}`
     }
 
-    console.log(`npm publish @${repoName} to https://npm.pkg.github.com`)
+    console.log(`npm publish @${repoName} ${nextVersion} to https://npm.pkg.github.com`)
     await $`echo "\`jq '.name="@${repoName}"' package.json\`" > package.json`
     await $`npm publish --no-git-tag-version --registry=https://npm.pkg.github.com/ --userconfig ${npmrc}`
   }
