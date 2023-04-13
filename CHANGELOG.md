@@ -1,3 +1,8 @@
+## [1.20.2](https://github.com/semrel-extra/zx-semrel/compare/v1.20.1...v1.20.2) (2023-04-13)
+
+### Fixes & improvements
+* fix: npm publish log refers to next v instead of prev ([85d2f19](https://github.com/semrel-extra/zx-semrel/commit/85d2f190daab768b37c0ca937717c3fa8bc24cc4))
+
 ## [1.20.1](https://github.com/semrel-extra/zx-semrel/compare/v1.20.0...v1.20.1) (2023-04-06)
 
 ### Fixes & improvements
