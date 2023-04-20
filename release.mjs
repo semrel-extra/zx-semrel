@@ -4,7 +4,7 @@
   $.noquote = async (...args) => { const q = $.quote; $.quote = v => v; const p = $(...args); p; $.quote = q; return p }
 
   // Git configuration
-  const {GIT_COMMITTER_NAME, GIT_COMMITTER_EMAIL, GITHUB_TOKEN, GH_TOKEN, PKG_ALIAS, PUSH_MAJOR_TAG, NPM_TOKEN, DEBUG, DRY_RUN} = process.env
+  const {GIT_COMMITTER_NAME, GIT_COMMITTER_EMAIL, GITHUB_TOKEN, GH_TOKEN, PKG_ALIAS, PUSH_MAJOR_TAG, NPM_TOKEN, NPM_PROVENANCE, DEBUG, DRY_RUN} = process.env
   const githubAuth = GITHUB_TOKEN || GH_TOKEN
 
   if (!githubAuth) {
@@ -155,6 +155,7 @@ ${commits.join('\n')}`).join('\n')
       fs.outputFileSync(_npmrc, `
 //registry.npmjs.org/:_authToken=${NPM_TOKEN}
 //npm.pkg.github.com/:_authToken=${githubAuth}
+${NPM_PROVENANCE ? 'provenance=true' : ''}
 `)
       return _npmrc
     })()
