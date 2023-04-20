@@ -155,7 +155,6 @@ ${commits.join('\n')}`).join('\n')
       fs.outputFileSync(_npmrc, `
 //registry.npmjs.org/:_authToken=${NPM_TOKEN}
 //npm.pkg.github.com/:_authToken=${githubAuth}
-${NPM_PROVENANCE ? 'provenance=true' : ''}
 `)
       return _npmrc
     })()
@@ -163,7 +162,7 @@ ${NPM_PROVENANCE ? 'provenance=true' : ''}
     for (const alias of aliases) {
       console.log(`npm publish ${alias} ${nextVersion} to ${npmjsRegistry}`)
       await $.noquote`echo "\`jq '.name="${alias}"' package.json\`" > package.json`
-      await $`npm publish --no-git-tag-version --registry=${npmjsRegistry} --userconfig ${npmrc}`
+      await $`npm publish ${NPM_PROVENANCE ? '--provenance' : ''} --no-git-tag-version --registry=${npmjsRegistry} --userconfig ${npmrc}`
     }
 
     console.log(`npm publish @${repoName} ${nextVersion} to https://npm.pkg.github.com`)
