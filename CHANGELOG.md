@@ -1,3 +1,8 @@
+## [1.21.3](https://github.com/semrel-extra/zx-semrel/compare/v1.21.2...v1.21.3) (2023-04-20)
+
+### Fixes & improvements
+* fix: set access public ([a84ac1b](https://github.com/semrel-extra/zx-semrel/commit/a84ac1b80d34ed893f155a1a19be9950915da52d))
+
 ## [1.21.2](https://github.com/semrel-extra/zx-semrel/compare/v1.21.1...v1.21.2) (2023-04-20)
 
 ### Fixes & improvements

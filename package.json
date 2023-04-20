@@ -3,7 +3,7 @@
   "alias": [
     "@semrel-extra/zx-semrel"
   ],
-  "version": "1.21.2",
+  "version": "1.21.3",
   "publishConfig": {
     "access": "public"
   },
