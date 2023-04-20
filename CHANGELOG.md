@@ -1,3 +1,8 @@
+## [1.21.0](https://github.com/semrel-extra/zx-semrel/compare/v1.20.2...v1.21.0) (2023-04-20)
+
+### Features
+* feat: handle NPM_PROVENANCE directive ([47053cc](https://github.com/semrel-extra/zx-semrel/commit/47053cc583df65b23ea1d49765383bc5e1e1693c))
+
 ## [1.20.2](https://github.com/semrel-extra/zx-semrel/compare/v1.20.1...v1.20.2) (2023-04-13)
 
 ### Fixes & improvements
