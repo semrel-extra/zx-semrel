@@ -1,3 +1,8 @@
+## [1.21.1](https://github.com/semrel-extra/zx-semrel/compare/v1.21.0...v1.21.1) (2023-04-20)
+
+### Fixes & improvements
+* fix: apply `--provenance` flag to npmjs.org repo only ([9d93185](https://github.com/semrel-extra/zx-semrel/commit/9d93185976216ca882972c79bccf289f9ec3450e))
+
 ## [1.21.0](https://github.com/semrel-extra/zx-semrel/compare/v1.20.2...v1.21.0) (2023-04-20)
 
 ### Features
