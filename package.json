@@ -1,5 +1,6 @@
 {
   "name": "zx-semrel",
+  "alias": ["@semrel-extra/zx-semrel"],
   "version": "1.21.1",
   "description": "zx-based release script as semantic-release alternative (PoC)",
   "main": "./release.mjs",
