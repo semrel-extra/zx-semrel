@@ -1,3 +1,8 @@
+## [1.21.2](https://github.com/semrel-extra/zx-semrel/compare/v1.21.1...v1.21.2) (2023-04-20)
+
+### Fixes & improvements
+* perf: test alias release ([408f659](https://github.com/semrel-extra/zx-semrel/commit/408f6592a611d0d78506cbaf3bb717e4d45b8ea6))
+
 ## [1.21.1](https://github.com/semrel-extra/zx-semrel/compare/v1.21.0...v1.21.1) (2023-04-20)
 
 ### Fixes & improvements
