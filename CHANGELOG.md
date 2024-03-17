@@ -1,3 +1,8 @@
+## [1.22.0](https://github.com/semrel-extra/zx-semrel/compare/v1.21.3...v1.22.0) (2024-03-17)
+
+### Features
+* feat: provide branch configuration ([d83e5ba](https://github.com/semrel-extra/zx-semrel/commit/d83e5ba0e80fb6b369c28ec1ace9f4f2a04bc7b6))
+
 ## [1.21.3](https://github.com/semrel-extra/zx-semrel/compare/v1.21.2...v1.21.3) (2023-04-20)
 
 ### Fixes & improvements
