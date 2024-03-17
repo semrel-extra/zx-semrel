@@ -4,7 +4,7 @@
   $.noquote = async (...args) => { const q = $.quote; $.quote = v => v; const p = $(...args); p; $.quote = q; return p }
 
   // Git configuration
-  const {GIT_COMMITTER_NAME, GIT_COMMITTER_EMAIL, GITHUB_TOKEN, GH_TOKEN, PKG_ALIAS, PUSH_MAJOR_TAG, NPM_TOKEN, NPM_PROVENANCE, DEBUG, DRY_RUN} = process.env
+  const {GIT_BRANCH, GIT_COMMITTER_NAME, GIT_COMMITTER_EMAIL, GITHUB_TOKEN, GH_TOKEN, PKG_ALIAS, PUSH_MAJOR_TAG, NPM_TOKEN, NPM_PROVENANCE, DEBUG, DRY_RUN} = process.env
   const githubAuth = GITHUB_TOKEN || GH_TOKEN
 
   if (!githubAuth) {
@@ -16,6 +16,7 @@
   const gitCommitterName = GIT_COMMITTER_NAME || 'Semrel Extra Bot'
   const gitCommitterEmail = GIT_COMMITTER_EMAIL || 'semrel-extra-bot@hotmail.com'
   const originUrl = (await $`git config --get remote.origin.url`).toString().trim()
+  const branch = GIT_BRANCH || (await $`git branch --show-current`).toString().trim() || 'master'
   const [,,repoHost, repoName] = originUrl.replace(':', '/').replace(/\.git/, '').match(/.+(@|\/\/)([^/]+)\/(.+)$/)
   const repoPublicUrl = `https://${repoHost}/${repoName}`
   const repoAuthedUrl = `https://${githubAuth}@${repoHost}/${repoName}.git`
@@ -127,7 +128,7 @@ ${commits.join('\n')}`).join('\n')
   await $`git add -A .`
   await $`git commit -am ${releaseMessage}`
   await $`git tag -a ${nextTag} HEAD -m ${releaseMessage}`
-  await $`git push --follow-tags origin HEAD:refs/heads/master`
+  await $`git push --follow-tags origin HEAD:refs/heads/${branch}`
   if (PUSH_MAJOR_TAG){
     const majorTag = nextTag.split('.')[0]
     await $`git tag -fa ${majorTag} HEAD -m ${releaseMessage}`
