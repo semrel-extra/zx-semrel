@@ -1,5 +1,8 @@
 // Replaces semantic-release with zx script
+import process from 'node:process'
+
 (async () => {
+  $.quiet = !process.env.VERBOSE
   $.verbose = !!process.env.VERBOSE
   $.noquote = async (...args) => { const q = $.quote; $.quote = v => v; const p = $(...args); p; $.quote = q; return p }
 
