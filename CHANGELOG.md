@@ -1,3 +1,8 @@
+## [1.22.1](https://github.com/semrel-extra/zx-semrel/compare/v1.22.0...v1.22.1) (2024-04-03)
+
+### Fixes & improvements
+* fix: add compat with zx v8 ([aff3813](https://github.com/semrel-extra/zx-semrel/commit/aff381309285a95611b6c34ff574d517653307c9))
+
 ## [1.22.0](https://github.com/semrel-extra/zx-semrel/compare/v1.21.3...v1.22.0) (2024-03-17)
 
 ### Features
