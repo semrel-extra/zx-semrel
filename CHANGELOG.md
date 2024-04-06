@@ -1,3 +1,9 @@
+## [1.22.2](https://github.com/semrel-extra/zx-semrel/compare/v1.22.1...v1.22.2) (2024-04-06)
+
+### Fixes & improvements
+* fix: fix cli.js init ([e558891](https://github.com/semrel-extra/zx-semrel/commit/e55889130af5127a1b2424ec5cc71e4c0d7c842b))
+* fix: update zx to v8 ([d2cddfa](https://github.com/semrel-extra/zx-semrel/commit/d2cddfad6f4c19de387e91b09ad43fde25829a92))
+
 ## [1.22.1](https://github.com/semrel-extra/zx-semrel/compare/v1.22.0...v1.22.1) (2024-04-03)
 
 ### Fixes & improvements
