@@ -1,4 +1,4 @@
 #!/usr/bin/env node
 
 import 'zx/globals'
-import './release.mjs'
+await import ('./release.mjs')
