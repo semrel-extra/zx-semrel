@@ -176,7 +176,7 @@ ${commits.join('\n')}`).join('\n')
 
   console.log(chalk.bold('Great success!'))
 
-  if (pkgJson.postrelease) {
+  if (pkgJson.scripts?.postrelease) {
     console.log('postrelease')
     await $`npm run postrelease`
   }
