@@ -1,3 +1,8 @@
+## [1.23.0](https://github.com/semrel-extra/zx-semrel/compare/v1.22.2...v1.23.0) (2024-12-03)
+
+### Features
+* feat: run postrelease script if exists ([65a7432](https://github.com/semrel-extra/zx-semrel/commit/65a7432ff91b14c19606dce0c3d6cc1b893fed78))
+
 ## [1.22.2](https://github.com/semrel-extra/zx-semrel/compare/v1.22.1...v1.22.2) (2024-04-06)
 
 ### Fixes & improvements
