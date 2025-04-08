@@ -75,23 +75,14 @@ import process from 'node:process'
     return
   }
   const nextVersion = ((lastTag, releaseType) => {
-    if (!releaseType) {
-      return
-    }
-    if (!lastTag) {
-      return pkgJson.version || '1.0.0'
-    }
+    if (!releaseType) return
+    if (!lastTag) return pkgJson.version || '1.0.0'
 
     const [, c1, c2, c3] = semanticTagPattern.exec(lastTag)
-    if (releaseType === 'major') {
-      return `${-~c1}.0.0`
-    }
-    if (releaseType === 'minor') {
-      return `${c1}.${-~c2}.0`
-    }
-    if (releaseType === 'patch') {
-      return `${c1}.${c2}.${-~c3}`
-    }
+
+    if (releaseType === 'major') return `${-~c1}.0.0`
+    if (releaseType === 'minor') return `${c1}.${-~c2}.0`
+    if (releaseType === 'patch') return `${c1}.${c2}.${-~c3}`
   })(lastTag, nextReleaseType)
 
   const nextTag = 'v' + nextVersion
@@ -124,7 +115,7 @@ ${commits.join('\n')}`).join('\n')
   await $`git remote set-url origin ${repoAuthedUrl}`
 
   // Prepare git commit and push
-  // Hint: PAT may be replaced with a SSH deploy token
+  // Hint: PAT may be replaced with an SSH deploy token
   // https://stackoverflow.com/questions/26372417/github-oauth2-token-how-to-restrict-access-to-read-a-single-private-repo
   console.log('git push')
   const releaseMessage = `chore(release): ${nextVersion} [skip ci]`
