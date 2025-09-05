@@ -18,12 +18,11 @@ import process from 'node:process'
   const dryRun = DRY_RUN || argv['dry-run']
   const gitCommitterName = GIT_COMMITTER_NAME || 'Semrel Extra Bot'
   const gitCommitterEmail = GIT_COMMITTER_EMAIL || 'semrel-extra-bot@hotmail.com'
-  const ghUser = GH_USER || 'x-access-token'
   const originUrl = (await $`git config --get remote.origin.url`).toString().trim()
   const branch = GIT_BRANCH || (await $`git branch --show-current`).toString().trim() || 'master'
   const [,,repoHost, repoName] = originUrl.replace(':', '/').replace(/\.git/, '').match(/.+(@|\/\/)([^/]+)\/(.+)$/)
   const repoPublicUrl = `https://${repoHost}/${repoName}`
-  const repoAuthedUrl = `https://${ghUser + ':' +githubAuth}@${repoHost}/${repoName}.git`
+  const repoAuthedUrl = `https://${githubAuth}@${repoHost}/${repoName}.git`
 
   // Commits analysis
   const semanticTagPattern = /^v?(\d+)\.(\d+)\.(\d+)$/
