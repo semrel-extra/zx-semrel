@@ -156,8 +156,14 @@ ${commits.join('\n')}`).join('\n')
 
     for (const alias of aliases) {
       console.log(`npm publish ${alias} ${nextVersion} to ${npmjsRegistry}`)
+      const npmFlags = [
+        '--no-git-tag-version',
+        `--registry=${npmjsRegistry}`,
+        `--userconfig=${npmrc}`,
+        NPM_PROVENANCE && '--provenance'
+      ].filter(Boolean)
       await $.noquote`echo "\`jq '.name="${alias}"' package.json\`" > package.json`
-      await $`npm publish ${NPM_PROVENANCE ? '--provenance' : ''} --no-git-tag-version --registry=${npmjsRegistry} --userconfig ${npmrc}`
+      await $`npm publish ${npmFlags}`
     }
 
     console.log(`npm publish @${repoName} ${nextVersion} to https://npm.pkg.github.com`)

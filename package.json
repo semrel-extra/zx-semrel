@@ -44,6 +44,6 @@
   },
   "homepage": "https://github.com/semrel-extra/zx-semrel#readme",
   "dependencies": {
-    "zx": "^8.0.0"
+    "zx": "^8.8.1"
   }
 }
