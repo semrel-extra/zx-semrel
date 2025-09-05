@@ -4,31 +4,29 @@ on:
   push:
     branches: [ master ]
 
-permissions:
-  checks: read
-  statuses: write
-  contents: write
-  packages: write
-
+permissions: {}
+  
 jobs:
   release:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      checks: read
+      statuses: write
+      contents: write
+      packages: write
       id-token: write
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v5
         with:
           fetch-depth: 0
           ref: master
           persist-credentials: false
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v5
         with:
-          node-version: 18
+          node-version: 24
           registry-url: 'https://registry.npmjs.org'
 
-      - run: npm install -g npm@latest
       - name: Install deps
         run: yarn
 
