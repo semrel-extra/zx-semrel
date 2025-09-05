@@ -4,7 +4,7 @@ import process from 'node:process'
 (async () => {
   $.quiet = !process.env.VERBOSE
   $.verbose = !!process.env.VERBOSE
-  $.noquote = async (...args) => { const q = $.quote; $.quote = v => v; const p = $(...args); p; $.quote = q; return p }
+  $.noquote = $({quote: v => v})
 
   // Git configuration
   const {GIT_BRANCH, GIT_COMMITTER_NAME, GIT_COMMITTER_EMAIL, GITHUB_TOKEN, GH_TOKEN, PKG_ALIAS, PUSH_MAJOR_TAG, NPM_TOKEN, NPM_PROVENANCE, DEBUG, DRY_RUN} = process.env
