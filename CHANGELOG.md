@@ -1,3 +1,9 @@
+## [1.23.3](https://github.com/semrel-extra/zx-semrel/compare/v1.23.2...v1.23.3) (2025-09-05)
+
+### Fixes & improvements
+* perf: simplify internal noquote ([78a9476](https://github.com/semrel-extra/zx-semrel/commit/78a9476c8117275988798fdf302f46410c488605))
+* perf: update zx to v8.8.1 ([ea3f1a6](https://github.com/semrel-extra/zx-semrel/commit/ea3f1a61135f29da4c4c8b5dbf324e09790a4435))
+
 ## [1.23.2](https://github.com/semrel-extra/zx-semrel/compare/v1.23.1...v1.23.2) (2024-12-03)
 
 ### Fixes & improvements
