@@ -8,7 +8,8 @@ import process from 'node:process'
 
   // Git configuration
   const {GIT_BRANCH, GIT_COMMITTER_NAME, GIT_COMMITTER_EMAIL, GITHUB_TOKEN, GH_TOKEN, GH_USER, PKG_ALIAS, PUSH_MAJOR_TAG, NPM_TOKEN, NPM_PROVENANCE, DEBUG, DRY_RUN} = process.env
-  const githubAuth = GITHUB_TOKEN || GH_TOKEN
+  const githubAuth = GITHUB_TOKEN || GH_TOKEN  // Keep in mind GH PAT !== GH Actions token
+  const githubUser = GH_USER ? GH_USER.replace('@', '') + ':' : ''
 
   if (!githubAuth) {
     throw new Error('env.GITHUB_TOKEN or GH_TOKEN is required')
@@ -22,7 +23,7 @@ import process from 'node:process'
   const branch = GIT_BRANCH || (await $`git branch --show-current`).toString().trim() || 'master'
   const [,,repoHost, repoName] = originUrl.replace(':', '/').replace(/\.git/, '').match(/.+(@|\/\/)([^/]+)\/(.+)$/)
   const repoPublicUrl = `https://${repoHost}/${repoName}`
-  const repoAuthedUrl = `https://${githubAuth}@${repoHost}/${repoName}.git`
+  const repoAuthedUrl = `https://${githubUser}${githubAuth}@${repoHost}/${repoName}.git`
 
   // Commits analysis
   const semanticTagPattern = /^v?(\d+)\.(\d+)\.(\d+)$/
