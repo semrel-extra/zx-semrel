@@ -1,3 +1,8 @@
+## [1.23.4](https://github.com/semrel-extra/zx-semrel/compare/v1.23.3...v1.23.4) (2025-09-18)
+
+### Fixes & improvements
+* fix: handle both gh pat and gh token flows ([3eebf06](https://github.com/semrel-extra/zx-semrel/commit/3eebf06b4b6fd555e68085fdd8e4d42e80fb99ae))
+
 ## [1.23.3](https://github.com/semrel-extra/zx-semrel/compare/v1.23.2...v1.23.3) (2025-09-05)
 
 ### Fixes & improvements
