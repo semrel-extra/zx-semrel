@@ -11,6 +11,8 @@
 #
 name: "CodeQL"
 
+permissions: {}
+
 on:
   push:
     branches: [ master ]
@@ -25,9 +27,10 @@ jobs:
     name: Analyze
     runs-on: ubuntu-latest
     permissions:
+      security-events: write
+      packages: read
       actions: read
       contents: read
-      security-events: write
 
     strategy:
       fail-fast: false
@@ -38,7 +41,9 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v5
+      with:
+        persist-credentials: false
 
     # Initializes the CodeQL tools for scanning.
     - name: Initialize CodeQL
