@@ -7,13 +7,19 @@ import process from 'node:process'
   $.noquote = $({quote: v => v})
 
   // Git configuration
-  const {GIT_BRANCH, GIT_COMMITTER_NAME, GIT_COMMITTER_EMAIL, GITHUB_TOKEN, GH_TOKEN, GH_USER, PKG_ALIAS, PUSH_MAJOR_TAG, NPM_TOKEN, NPM_PROVENANCE, DEBUG, DRY_RUN} = process.env
+  const {GIT_BRANCH, GIT_COMMITTER_NAME, GIT_COMMITTER_EMAIL, GITHUB_TOKEN, GH_TOKEN, GH_USER, PKG_ALIAS, PUSH_MAJOR_TAG, NPM_TOKEN, NPM_OIDC, NPM_PROVENANCE, ACTIONS_ID_TOKEN_REQUEST_URL, DEBUG, DRY_RUN} = process.env
   const githubAuth = GITHUB_TOKEN || GH_TOKEN  // Keep in mind GH PAT !== GH Actions token
   const githubUser = GH_USER ? GH_USER.replace('@', '') + ':' : ''
 
-  if (!githubAuth) {
+  if (!githubAuth)
     throw new Error('env.GITHUB_TOKEN or GH_TOKEN is required')
-  }
+
+  const npmOidc = NPM_OIDC || (!NPM_TOKEN && ACTIONS_ID_TOKEN_REQUEST_URL)
+  if (npmOidc && !ACTIONS_ID_TOKEN_REQUEST_URL)
+    throw new Error('NPM_OIDC requires GitHub Actions environment with `id-token: write` permission')
+
+  if (!npmOidc && !NPM_TOKEN)
+    throw new Error('Either NPM_OIDC or NPM_TOKEN is required for npm publishing')
 
   const debug = DEBUG || argv['debug']
   const dryRun = DRY_RUN || argv['dry-run']
@@ -109,7 +115,7 @@ ${commits.join('\n')}`).join('\n')
   // Update package.json version
   await $`npm --no-git-tag-version --allow-same-version version ${nextVersion}`
 
-  if (dryRun)  return
+  if (dryRun) return
 
   await $`git config user.name ${gitCommitterName}`
   await $`git config user.email ${gitCommitterEmail}`
@@ -147,13 +153,20 @@ ${commits.join('\n')}`).join('\n')
       let _npmrc = path.resolve(process.cwd(), '.npmrc')
       if (fs.existsSync(_npmrc)) return _npmrc
 
+      const lines = []
+      if (!npmOidc && NPM_TOKEN) {
+        lines.push(`//registry.npmjs.org/:_authToken=${NPM_TOKEN}`)
+      }
+      lines.push(`//npm.pkg.github.com/:_authToken=${githubAuth}`)
+
       _npmrc = path.resolve(fs.realpathSync(os.tmpdir()), 'zx-semrel', Math.random().toString(36).substring(2), '.npmrc')
-      fs.outputFileSync(_npmrc, `
-//registry.npmjs.org/:_authToken=${NPM_TOKEN}
-//npm.pkg.github.com/:_authToken=${githubAuth}
-`)
+      fs.outputFileSync(_npmrc, lines.join('\n') + '\n')
       return _npmrc
     })()
+
+    if (npmOidc) {
+      console.log('npm publish: OIDC trusted publishing enabled')
+    }
 
     for (const alias of aliases) {
       console.log(`npm publish ${alias} ${nextVersion} to ${npmjsRegistry}`)
@@ -161,7 +174,7 @@ ${commits.join('\n')}`).join('\n')
         '--no-git-tag-version',
         `--registry=${npmjsRegistry}`,
         `--userconfig=${npmrc}`,
-        NPM_PROVENANCE && '--provenance'
+        (NPM_PROVENANCE || npmOidc) && '--provenance'
       ].filter(Boolean)
       await $.noquote`echo "\`jq '.name="${alias}"' package.json\`" > package.json`
       await $`npm publish ${npmFlags}`

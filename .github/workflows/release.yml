@@ -38,6 +38,7 @@ jobs:
           GIT_COMMITTER_EMAIL: ${{ secrets.GIT_COMMITTER_EMAIL }}
           GH_USER: x-access-token
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_OIDC: true
+          # NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_PROVENANCE: true
           PUSH_MAJOR_TAG: true

@@ -49,6 +49,23 @@ GIT_COMMITTER_NAME=antongolub GIT_COMMITER_EMAIL=mailbox@antongolub.ru GITHUB_TO
 ```
 See also [gh-actions usage example](https://github.com/semrel-extra/zx-semrel/blob/master/.github/workflows/release.yml)
 
+### npm publishing: OIDC vs legacy tokens
+Since [npm revoked classic tokens](https://github.blog/changelog/2025-12-09-npm-classic-tokens-revoked-session-based-auth-and-cli-token-management-now-available/) the recommended way to publish from CI/CD is [OIDC Trusted Publishing](https://docs.npmjs.com/trusted-publishers/).
+
+**OIDC mode** (priority) — set `NPM_OIDC=true` or omit `NPM_TOKEN` in a GitHub Actions environment with `id-token: write` permission. The npm CLI obtains a short-lived credential automatically; `--provenance` is enforced.
+
+**Legacy mode** — provide `NPM_TOKEN` (granular access token, 90-day max lifetime). Used as fallback when `NPM_OIDC` is not set.
+
+Auto-detection: if `NPM_OIDC` is not set and `NPM_TOKEN` is absent, OIDC is used automatically when `ACTIONS_ID_TOKEN_REQUEST_URL` is available (GitHub Actions with `id-token: write`).
+
+#### OIDC limitations
+* **First publish** of a package cannot use OIDC — the initial version must be published with a token or locally, then configure trusted publishing on [npmjs.com](https://www.npmjs.com)
+* Each package supports **one trusted publisher** at a time — configure it per package (and per alias) at npmjs.com → Settings → Trusted publishing
+* The **workflow filename** in trusted publisher config must match exactly (case-sensitive, `.yml` vs `.yaml`)
+* Requires **npm >= 11.5.1** and **Node.js >= 22.14.0**
+* An existing project `.npmrc` with an `_authToken` for `registry.npmjs.org` will override OIDC — remove it to use trusted publishing
+* OIDC applies to **npmjs.org only**; GitHub Packages still uses `GITHUB_TOKEN` / `GH_TOKEN`
+
 ### 🛠️ Extras
 * [zx + semrel + maven](https://gist.github.com/malys/f295388ac10c8fc30b8912598b13ceb6) by [@malys](https://github.com/malys)
 
@@ -56,6 +73,8 @@ See also [gh-actions usage example](https://github.com/semrel-extra/zx-semrel/bl
 [MIT](https://github.com/semrel-extra/zx-semrel/blob/master/LICENSE)
 
 ### 📎 Refs
+* [npm Trusted Publishing docs](https://docs.npmjs.com/trusted-publishers/)
+* [npm classic tokens revoked](https://github.blog/changelog/2025-12-09-npm-classic-tokens-revoked-session-based-auth-and-cli-token-management-now-available/)
 * [Actually you don’t need 'semantic-release' for semantic release](https://dev.to/antongolub/you-don-t-need-semantic-release-sometimes-3k6k)
 * [stackoverflow.com/github-oauth2-token-how-to-restrict-access-to-read-a-single-private-repo](https://stackoverflow.com/questions/26372417/github-oauth2-token-how-to-restrict-access-to-read-a-single-private-repo)
 * [npmjs.com/using-private-packages-in-a-ci-cd-workflow](https://docs.npmjs.com/using-private-packages-in-a-ci-cd-workflow)
