@@ -17,14 +17,14 @@ jobs:
       actions: read
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
         with:
           persist-credentials: false
 
       - name: Install the latest version of uv
-        uses: astral-sh/setup-uv@d0cc045d04ccac9d8b7881df0226f9e82c39688e # v6.8.0
+        uses: astral-sh/setup-uv@cec208311dfd045dd5311c1add060b2062131d57 # v8.0.0
         with:
           enable-cache: false
 
       - name: Run zizmor
-        run: uvx zizmor@1.13.0 .github/workflows -v -p --min-severity=medium
+        run: uvx zizmor@1.23.1 .github/workflows -v -p --min-severity=medium
