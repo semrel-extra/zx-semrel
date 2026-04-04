@@ -11,7 +11,7 @@
   "main": "./release.mjs",
   "type": "module",
   "scripts": {
-    "test": "exit 0",
+    "test": "node --test test.mjs",
     "release": "zx ./release.mjs"
   },
   "engines": {

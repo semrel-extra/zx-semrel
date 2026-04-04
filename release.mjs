@@ -1,12 +1,12 @@
 // Replaces semantic-release with zx script
-import process from 'node:process'
 
-;(async () => {
-  $.quiet = !process.env.VERBOSE
-  $.verbose = !!process.env.VERBOSE
+export default (async () => {
+  const env = $.env
+  $.quiet = !env.VERBOSE
+  $.verbose = !!env.VERBOSE
   $.noquote = $({quote: v => v})
 
-  const {GIT_BRANCH, GIT_COMMITTER_NAME, GIT_COMMITTER_EMAIL, GITHUB_TOKEN, GH_TOKEN, GH_USER, PKG_ALIAS, PUSH_MAJOR_TAG, NPM_TOKEN, NPM_OIDC, NPM_PROVENANCE, ACTIONS_ID_TOKEN_REQUEST_URL, DEBUG, DRY_RUN} = process.env
+  const {GIT_BRANCH, GIT_COMMITTER_NAME, GIT_COMMITTER_EMAIL, GITHUB_TOKEN, GH_TOKEN, GH_USER, PKG_ALIAS, PUSH_MAJOR_TAG, NPM_TOKEN, NPM_OIDC, NPM_PROVENANCE, ACTIONS_ID_TOKEN_REQUEST_URL, DEBUG, DRY_RUN} = env
   const ghAuth = GITHUB_TOKEN || GH_TOKEN
   const npmOidc = NPM_OIDC || (!NPM_TOKEN && ACTIONS_ID_TOKEN_REQUEST_URL)
 
