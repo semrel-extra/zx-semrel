@@ -1,3 +1,8 @@
+## [1.24.2](https://github.com/semrel-extra/zx-semrel/compare/v1.24.1...v1.24.2) (2026-04-04)
+
+### Fixes & improvements
+* refactor: internal code imprs ([7384486](https://github.com/semrel-extra/zx-semrel/commit/738448665ae93fbe62fcc9d1ac53ff057eca25a4))
+
 ## [1.24.1](https://github.com/semrel-extra/zx-semrel/compare/v1.24.0...v1.24.1) (2026-04-04)
 
 ### Fixes & improvements
