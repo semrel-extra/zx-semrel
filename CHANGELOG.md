@@ -1,3 +1,8 @@
+## [1.24.1](https://github.com/semrel-extra/zx-semrel/compare/v1.24.0...v1.24.1) (2026-04-04)
+
+### Fixes & improvements
+* fix: fix self release ([45f97ea](https://github.com/semrel-extra/zx-semrel/commit/45f97ea64aba7a7212e7cc59b7b4f19bc2737d50))
+
 ## [1.24.0](https://github.com/semrel-extra/zx-semrel/compare/v1.23.4...v1.24.0) (2026-04-04)
 
 ### Features
