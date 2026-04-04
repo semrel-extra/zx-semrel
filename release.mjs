@@ -34,7 +34,7 @@ import process from 'node:process'
     {group: 'BREAKING CHANGES', releaseType: 'major', keywords: ['BREAKING CHANGE', 'BREAKING CHANGES']},
   ]
 
-  const pkgJson = fs.readJSONSync('./package.json')
+  const pkgJson = await fs.readJSON('./package.json')
   const tags = (await $`git tag -l --sort=-v:refname`).toString().split('\n').map(tag => tag.trim())
   const lastTag = tags.find(tag => semanticTagPattern.test(tag))
   const commitsRange = lastTag ? `${(await $`git rev-list -1 ${lastTag}`).toString().trim()}..HEAD` : 'HEAD'
