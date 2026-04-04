@@ -1,3 +1,8 @@
+## [1.24.0](https://github.com/semrel-extra/zx-semrel/compare/v1.23.4...v1.24.0) (2026-04-04)
+
+### Features
+* feat: support npm oidc flow ([c71ac17](https://github.com/semrel-extra/zx-semrel/commit/c71ac171e1a5a19b22cb02ca2c545eb50b28e6ae))
+
 ## [1.23.4](https://github.com/semrel-extra/zx-semrel/compare/v1.23.3...v1.23.4) (2025-09-18)
 
 ### Fixes & improvements
