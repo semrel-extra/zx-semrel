@@ -1,3 +1,8 @@
+## [1.25.0](https://github.com/semrel-extra/zx-semrel/compare/v1.24.2...v1.25.0) (2026-07-23)
+
+### Features
+* feat: provide git commit sign ([75e6dc8](https://github.com/semrel-extra/zx-semrel/commit/75e6dc889c5404c3aeaad7fd54490e1a12ab2658))
+
 ## [1.24.2](https://github.com/semrel-extra/zx-semrel/compare/v1.24.1...v1.24.2) (2026-04-04)
 
 ### Fixes & improvements
