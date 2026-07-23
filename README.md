@@ -1,10 +1,10 @@
 # zx-semrel
 [![Release](https://github.com/semrel-extra/zx-semrel/workflows/Release/badge.svg)](https://github.com/semrel-extra/zx-semrel/actions)
 
-> [zx](https://github.com/google/zx) -based release script as [semantic-release](https://github.com/semantic-release/semantic-release) alternative (PoC)
+> A [zx](https://github.com/google/zx)-based release script — a [semantic-release](https://github.com/semantic-release/semantic-release) alternative (PoC)
 
-Sometimes bloody enterprise enforces you not to use any third-party solutions for sensitive operations (like release, deploy, so on).
-Old good script **copy-paste** hurries to the rescue!
+Sometimes bloody enterprise forbids you from using any third-party solutions for sensitive operations (like release, deploy, and so on).
+Good old **copy-paste** comes to the rescue!
 
 Btw, here's an adaptation for monorepos: [zx-bulk-release](https://github.com/semrel-extra/zx-bulk-release)
 
@@ -31,26 +31,65 @@ Btw, here's an adaptation for monorepos: [zx-bulk-release](https://github.com/se
 
 ### 🚀 Usage
 1. Copy
-2. Tweak up, inject tokens, etc
+2. Tweak it, inject tokens, etc.
 3. Run
 ```bash
 curl https://raw.githubusercontent.com/semrel-extra/zx-semrel/master/release.mjs > ./release.mjs
 zx ./release.mjs
 ```
-or this like if `zx` is not installed:
+or like this if `zx` is not installed:
 ```bash
 # Just replace GIT* env values with your own
-GIT_COMMITTER_NAME=antongolub GIT_COMMITER_EMAIL=mailbox@antongolub.ru GITHUB_TOKEN=token npx zx ./release.mjs
+GIT_COMMITTER_NAME=antongolub GIT_COMMITTER_EMAIL=mailbox@antongolub.ru GITHUB_TOKEN=token npx zx ./release.mjs
 ```
-or just run it without any edits though **npx**:
+or just run it without any edits through **npx**:
 ```bash
 # Cross your fingers for luck
-GIT_COMMITTER_NAME=antongolub GIT_COMMITER_EMAIL=mailbox@antongolub.ru GITHUB_TOKEN=token npx zx-semrel
+GIT_COMMITTER_NAME=antongolub GIT_COMMITTER_EMAIL=mailbox@antongolub.ru GITHUB_TOKEN=token npx zx-semrel
 ```
-See also [gh-actions usage example](https://github.com/semrel-extra/zx-semrel/blob/master/.github/workflows/release.yml)
+See also the [gh-actions usage example](https://github.com/semrel-extra/zx-semrel/blob/master/.github/workflows/release.yml)
+
+### Environment variables
+Config is entirely env-driven. Booleans are **on** for any non-empty value. Only a GitHub token is strictly required — in GitHub Actions with `id-token: write`, npm OIDC self-enables, so a token pair is often the whole config.
+
+**Auth**
+
+| Variable | Required | Default | Controls |
+|---|:--:|---|---|
+| `GITHUB_TOKEN` / `GH_TOKEN` | **yes** | — | GitHub API (release), commit push, GitHub Packages auth |
+| `NPM_TOKEN` | one of | — | npm auth — legacy token mode |
+| `NPM_OIDC` | one of | auto in Actions | npm [OIDC trusted publishing](#npm-publishing-oidc-vs-legacy-tokens) instead of a token |
+
+Publishing needs **one of** `NPM_TOKEN` / `NPM_OIDC`; in GitHub Actions with `id-token: write` OIDC self-enables (via the runner-provided `ACTIONS_ID_TOKEN_REQUEST_URL`).
+
+**Git commit / tag**
+
+| Variable | Required | Default | Controls |
+|---|:--:|---|---|
+| `GIT_COMMITTER_NAME` | no | `Semrel Extra Bot` | Committer name |
+| `GIT_COMMITTER_EMAIL` | no | `semrel-extra-bot@hotmail.com` | Committer email — match the signing account for **Verified** |
+| `GIT_SIGN_KEY` | no | — | SSH **private** key → [sign](#signed-release-commits-opt-in) the release commit & tag |
+| `GIT_BRANCH` | no | current → `master` | Branch the release is pushed to |
+| `GH_USER` | no | — | Username in the token push URL (e.g. `x-access-token`) |
+
+**npm publish** — skipped entirely when `package.json` has `"private": true`
+
+| Variable | Required | Default | Controls |
+|---|:--:|---|---|
+| `PKG_ALIAS` | no | pkg `alias` field | Extra name to also publish under |
+| `NPM_PROVENANCE` | no | on with OIDC | Force `--provenance` |
+
+**Behaviour**
+
+| Variable | Required | Default | Controls |
+|---|:--:|---|---|
+| `PUSH_MAJOR_TAG` | no | off | Also move & force-push the major tag (`v1`) |
+| `DRY_RUN` | no | off | Stop before commit/push/publish — same as `--dry-run` |
+| `DEBUG` | no | off | Extra logging — same as `--debug` |
+| `VERBOSE` | no | off | Verbose shell output |
 
 ### npm publishing: OIDC vs legacy tokens
-Since [npm revoked classic tokens](https://github.blog/changelog/2025-12-09-npm-classic-tokens-revoked-session-based-auth-and-cli-token-management-now-available/) the recommended way to publish from CI/CD is [OIDC Trusted Publishing](https://docs.npmjs.com/trusted-publishers/).
+Since [npm revoked classic tokens](https://github.blog/changelog/2025-12-09-npm-classic-tokens-revoked-session-based-auth-and-cli-token-management-now-available/), the recommended way to publish from CI/CD is [OIDC Trusted Publishing](https://docs.npmjs.com/trusted-publishers/).
 
 **OIDC mode** (priority) — set `NPM_OIDC=true` or omit `NPM_TOKEN` in a GitHub Actions environment with `id-token: write` permission. The npm CLI obtains a short-lived credential automatically; `--provenance` is enforced.
 
