@@ -6,7 +6,7 @@ export default (async () => {
   $.verbose = !!env.VERBOSE
   $.noquote = $({quote: v => v})
 
-  const {GIT_BRANCH, GIT_COMMITTER_NAME, GIT_COMMITTER_EMAIL, GITHUB_TOKEN, GH_TOKEN, GH_USER, PKG_ALIAS, PUSH_MAJOR_TAG, NPM_TOKEN, NPM_OIDC, NPM_PROVENANCE, ACTIONS_ID_TOKEN_REQUEST_URL, DEBUG, DRY_RUN} = env
+  const {GIT_BRANCH, GIT_COMMITTER_NAME, GIT_COMMITTER_EMAIL, GIT_SIGN_KEY, GITHUB_TOKEN, GH_TOKEN, GH_USER, PKG_ALIAS, PUSH_MAJOR_TAG, NPM_TOKEN, NPM_OIDC, NPM_PROVENANCE, ACTIONS_ID_TOKEN_REQUEST_URL, DEBUG, DRY_RUN} = env
   const ghAuth = GITHUB_TOKEN || GH_TOKEN
   const npmOidc = NPM_OIDC || (!NPM_TOKEN && ACTIONS_ID_TOKEN_REQUEST_URL)
 
@@ -95,6 +95,17 @@ export default (async () => {
 
   await $`git config user.name ${committerName}`
   await $`git config user.email ${committerEmail}`
+
+  // opt-in commit signing (SSH). Local git config only — never global.
+  if (GIT_SIGN_KEY) {
+    const keyFile = path.join(os.tmpdir(), 'zx-semrel-ssh-signing-key')
+    fs.writeFileSync(keyFile, GIT_SIGN_KEY.trim() + '\n', {mode: 0o600})
+    await $`git config gpg.format ssh`
+    await $`git config user.signingkey ${keyFile}`
+    await $`git config commit.gpgsign true`
+    await $`git config tag.gpgsign true`
+  }
+
   await $`git remote set-url origin ${repoAuthUrl}`
 
   console.log('git push')

@@ -25,7 +25,7 @@ Btw, here's an adaptation for monorepos: [zx-bulk-release](https://github.com/se
 * Poor [conventional commits](https://www.conventionalcommits.org/en/v1.0.0/) analysis
 * `CHANGELOG.md` generation
 * `package.json` version bumping
-* Git release commit creation
+* Git release commit creation (optionally [SSH-signed](#signed-release-commits-opt-in))
 * [GitHub Release](https://docs.github.com/en/github/administering-a-repository/releasing-projects-on-github/managing-releases-in-a-repository#creating-a-release)
 * Package publishing to both [npmjs](https://registry.npmjs.org) and [gh](http://npm.pkg.github.com) registries
 
@@ -65,6 +65,28 @@ Auto-detection: if `NPM_OIDC` is not set and `NPM_TOKEN` is absent, OIDC is used
 * Requires **npm >= 11.5.1** and **Node.js >= 22.14.0**
 * An existing project `.npmrc` with an `_authToken` for `registry.npmjs.org` will override OIDC — remove it to use trusted publishing
 * OIDC applies to **npmjs.org only**; GitHub Packages still uses `GITHUB_TOKEN` / `GH_TOKEN`
+
+### Signed release commits (opt-in)
+Branch [rulesets](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets) with **Require signed commits** reject the release commit, because zx-semrel creates it with a plain, unsigned local `git commit`. Set `GIT_SIGN_KEY` to sign the release commit **and** tag with SSH.
+
+`GIT_SIGN_KEY` — the **private** SSH key of the committer identity (the full multi-line key, e.g. the contents of an `id_ed25519` file). When set, zx-semrel writes it to a temporary `0600` file and enables SSH signing via **local** git config only (`gpg.format ssh`, `user.signingkey`, `commit.gpgsign`, `tag.gpgsign`) — it never touches your global git config. When unset, behaviour is unchanged (unsigned commit).
+
+```yaml
+# .github/workflows/release.yml
+env:
+  GIT_COMMITTER_NAME: Semrel Extra Bot
+  GIT_COMMITTER_EMAIL: bot@example.com          # must be a verified email on the account below
+  GIT_SIGN_KEY: ${{ secrets.GIT_SIGN_KEY }}     # PEM-format private key, incl. the BEGIN/END lines
+```
+
+For GitHub to show **Verified** (rather than **Unverified**):
+* Add the matching **public** key to the committing account at **Settings → SSH and GPG keys → New SSH key**, choosing **Key type: Signing Key** (not the default *Authentication Key*).
+* That account must have a **verified email equal to `GIT_COMMITTER_EMAIL`** — GitHub matches the signature to the identity by the committer email.
+
+Notes:
+* SSH format only for now; GPG signing is out of scope.
+* Generate a dedicated key, e.g. `ssh-keygen -t ed25519 -C bot@example.com -f ./sign_key`, store the private half as the `GIT_SIGN_KEY` secret, and register `sign_key.pub` as a Signing Key.
+* The bot account still needs push access to the protected branch (rulesets apply to everyone unless bypassed).
 
 ### 🛠️ Extras
 * [zx + semrel + maven](https://gist.github.com/malys/f295388ac10c8fc30b8912598b13ceb6) by [@malys](https://github.com/malys)

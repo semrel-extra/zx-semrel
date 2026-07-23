@@ -3,7 +3,7 @@ import {test, describe, beforeEach, afterEach} from 'node:test'
 import assert from 'node:assert'
 import {PassThrough} from 'node:stream'
 import {EventEmitter} from 'node:events'
-import {mkdtempSync, writeFileSync, rmSync, readFileSync} from 'node:fs'
+import {mkdtempSync, writeFileSync, rmSync, readFileSync, statSync, existsSync} from 'node:fs'
 import {join} from 'node:path'
 import {tmpdir} from 'node:os'
 
@@ -58,6 +58,11 @@ const gitResponses = (overrides = {}) => [
 
 let tmpDir, origCwd, origEnv
 
+// release.mjs writes the opt-in SSH signing key to this fixed path in os.tmpdir()
+const signKeyFile = join(tmpdir(), 'zx-semrel-ssh-signing-key')
+// synthetic multi-line key material — git is mocked, so it need not be a real key
+const signKey = 'zx-semrel-test-key-line-1\nzx-semrel-test-key-line-2\nzx-semrel-test-key-line-3'
+
 const baseEnv = {
   PATH: process.env.PATH,
   HOME: process.env.HOME,
@@ -82,6 +87,7 @@ afterEach(() => {
   process.chdir(origCwd)
   $.env = origEnv
   rmSync(tmpDir, {recursive: true, force: true})
+  rmSync(signKeyFile, {force: true})
 })
 
 async function run(mock, env) {
@@ -211,5 +217,65 @@ describe('release.mjs', () => {
     }))
     await run(mock)
     assert.ok(has(mock.calls, 'version 1.0.0'))
+  })
+
+  test('GIT_SIGN_KEY — enables SSH signing via local git config and writes 0600 key file', async () => {
+    rmSync(signKeyFile, {force: true})
+    const mock = createMock(gitResponses({
+      log: '+++fix: sign the release____sig1__sig1full',
+    }))
+    // surrounding whitespace proves the key is trimmed before writing
+    await run(mock, {GIT_SIGN_KEY: `\n${signKey}\n`})
+
+    // SSH signing configured — locally only, never --global
+    assert.ok(has(mock.calls, 'git config gpg.format ssh'))
+    assert.ok(has(mock.calls, 'git config user.signingkey'))
+    assert.ok(has(mock.calls, 'git config commit.gpgsign true'))
+    assert.ok(has(mock.calls, 'git config tag.gpgsign true'))
+    assert.ok(!mock.calls.some(c => c.includes('--global')), 'signing must never touch global git config')
+    // signingkey points at the written key file
+    assert.ok(mock.calls.some(c => c.includes('user.signingkey') && c.includes(signKeyFile)))
+    // release still proceeds
+    assert.ok(has(mock.calls, 'git commit'))
+    assert.ok(has(mock.calls, 'git push'))
+
+    // key material preserved exactly: multi-line, single trailing newline, mode 0600
+    const content = readFileSync(signKeyFile, 'utf8')
+    assert.strictEqual(content, signKey + '\n')
+    assert.strictEqual(content.split('\n').filter(Boolean).length, 3, 'multi-line key preserved')
+    assert.strictEqual(statSync(signKeyFile).mode & 0o777, 0o600)
+  })
+
+  test('GIT_SIGN_KEY unset — no signing config, unsigned commit (no regression)', async () => {
+    rmSync(signKeyFile, {force: true})
+    const mock = createMock(gitResponses({
+      log: '+++fix: plain unsigned release____uns1__uns1full',
+    }))
+    await run(mock)
+
+    assert.ok(!has(mock.calls, 'gpg.format'))
+    assert.ok(!has(mock.calls, 'user.signingkey'))
+    assert.ok(!has(mock.calls, 'commit.gpgsign'))
+    assert.ok(!has(mock.calls, 'tag.gpgsign'))
+    // commit is still created and pushed — just unsigned
+    assert.ok(has(mock.calls, 'git commit'))
+    assert.ok(has(mock.calls, 'git push'))
+    assert.ok(!existsSync(signKeyFile), 'no key file when GIT_SIGN_KEY is unset')
+  })
+
+  test('dry run with GIT_SIGN_KEY — writes no key file and changes no git config', async () => {
+    rmSync(signKeyFile, {force: true})
+    const mock = createMock(gitResponses({
+      log: '+++fix: dry signed run____dry1__dry1full',
+    }))
+    await run(mock, {DRY_RUN: 'true', GIT_SIGN_KEY: signKey})
+
+    assert.ok(!has(mock.calls, 'gpg.format'))
+    assert.ok(!has(mock.calls, 'commit.gpgsign'))
+    assert.ok(!has(mock.calls, 'user.signingkey'))
+    // guard returns before the post-guard config/commit section runs at all
+    assert.ok(!has(mock.calls, 'git config user.name'))
+    assert.ok(!has(mock.calls, 'git push'))
+    assert.ok(!existsSync(signKeyFile), 'dry run must not write the signing key file')
   })
 })
