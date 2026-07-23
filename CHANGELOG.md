@@ -1,3 +1,8 @@
+## [1.25.1](https://github.com/semrel-extra/zx-semrel/compare/v1.25.0...v1.25.1) (2026-07-23)
+
+### Fixes & improvements
+* docs: describe env config ([f17f572](https://github.com/semrel-extra/zx-semrel/commit/f17f572e1ba3a0d3d19353b2763fff1aaed8eeec))
+
 ## [1.25.0](https://github.com/semrel-extra/zx-semrel/compare/v1.24.2...v1.25.0) (2026-07-23)
 
 ### Features
