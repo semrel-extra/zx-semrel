@@ -1,3 +1,8 @@
+## [1.25.2](https://github.com/semrel-extra/zx-semrel/compare/v1.25.1...v1.25.2) (2026-10-02)
+
+### Fixes & improvements
+* fix: add `--atomic` to git push ([d97e436](https://github.com/semrel-extra/zx-semrel/commit/d97e436942874ae665f6f5bee9a7ca28a50e822e))
+
 ## [1.25.1](https://github.com/semrel-extra/zx-semrel/compare/v1.25.0...v1.25.1) (2026-07-23)
 
 ### Fixes & improvements
