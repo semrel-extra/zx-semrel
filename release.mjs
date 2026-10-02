@@ -113,7 +113,7 @@ export default (async () => {
   await $`git add -A .`
   await $`git commit -am ${releaseMessage}`
   await $`git tag -a ${nextTag} HEAD -m ${releaseMessage}`
-  await $`git push --follow-tags origin HEAD:refs/heads/${branch}`
+  await $`git push --atomic --follow-tags origin HEAD:refs/heads/${branch}`
   if (PUSH_MAJOR_TAG) {
     const majorTag = nextTag.split('.')[0]
     await $`git tag -fa ${majorTag} HEAD -m ${releaseMessage}`

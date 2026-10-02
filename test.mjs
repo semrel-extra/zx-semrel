@@ -119,7 +119,7 @@ describe('release.mjs', () => {
     await run(mock)
     assert.ok(has(mock.calls, 'version 1.0.1'))
     assert.ok(has(mock.calls, 'v1.0.1'))
-    assert.ok(has(mock.calls, 'git push'))
+    assert.ok(has(mock.calls, 'git push --atomic --follow-tags'))
     assert.ok(has(mock.calls, 'npm publish'))
   })
 
